@@ -28,7 +28,13 @@ namespace GeneralMerchandise.UI.Pages
 
         public override ViewModel.ViewModel GetViewModel()
         {
-            throw new NotImplementedException();
+            ViewModel.ViewModel vm = (ViewModel.ViewModel)DataContext;
+            if(vm == null)
+            {
+                DataContext = vm = new LoginViewModel();
+                
+            }
+            return vm;
         }
     }
 }

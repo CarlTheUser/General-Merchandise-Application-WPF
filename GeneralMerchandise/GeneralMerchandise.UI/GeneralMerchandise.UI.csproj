@@ -63,6 +63,9 @@
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\PersistibleModel.cs" />
+    <Compile Include="Navigation\IUserNavigation.cs" />
+    <Compile Include="Navigation\NavigationItem.cs" />
+    <Compile Include="Navigation\PrenavigationEventArgs.cs" />
     <Compile Include="Pages\ApplicationPage.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">

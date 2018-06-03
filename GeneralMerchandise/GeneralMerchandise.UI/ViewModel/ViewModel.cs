@@ -22,7 +22,7 @@ namespace GeneralMerchandise.UI.ViewModel
 
         public IDictionary<int, object> Parameters
         {
-            protected get => parameters;
+            get => parameters;
             set
             {
                 if (!parameterSet)
@@ -33,6 +33,7 @@ namespace GeneralMerchandise.UI.ViewModel
             }
         }
 
+        public ViewModel() { }
 
 
     }
