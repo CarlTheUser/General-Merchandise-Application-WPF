@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.Data.Password
 {
-    interface ISecuredPassword
+    interface IHashedPassword
     {
-        byte[] SecurePassword(string password);
-        bool VerifyPassword(string input, string storedPassword);
+        SecuredPassword HashPassword(string password);
+        bool VerifyPassword(string input, SecuredPassword password);
     }
+
+
 }

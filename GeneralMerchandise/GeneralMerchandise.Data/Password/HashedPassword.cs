@@ -6,23 +6,29 @@ using System.Linq;
 
 namespace GeneralMerchandise.Data.Password
 {
-    internal class PasswordHash : ISecuredPassword
+    internal class HashedPassword : IHashedPassword
     {
         private static readonly int SALT_SIZE = 16;
 
-        public byte[] SecurePassword(string password)
+        SecuredPassword IHashedPassword.HashPassword(string password)
         {
             HashAlgorithm hash = new SHA1CryptoServiceProvider();
             RandomNumberGenerator rng = new RNGCryptoServiceProvider();
-            byte[] passwordBytes = Encoding.ASCII.GetBytes(password);
             byte[] salt = CreateSalt(rng, SALT_SIZE);
-            return hash.ComputeHash(PreppendBytes(salt, passwordBytes));
+            byte[] passwordBytes = Encoding.ASCII.GetBytes(password);
+            return new SecuredPassword(ConvertToString(salt), ConvertToString(hash.ComputeHash(PreppendBytes(salt, passwordBytes))));
         }
 
-        public bool VerifyPassword(string input, string storedPassword)
+
+        public bool VerifyPassword(string input, SecuredPassword password)
         {
-            return storedPassword.Equals(SecurePassword(input));
+            throw new NotImplementedException();
         }
+
+        //public bool VerifyPassword(string input, string storedPassword)
+        //{
+        //    return storedPassword.Equals(HashPassword(input));
+        //}
 
         private static byte[] CreateSalt(RandomNumberGenerator randomNumberGenerator, int size)
         {
@@ -35,5 +41,13 @@ namespace GeneralMerchandise.Data.Password
         {
             return toPreppend.Concat(bytes).ToArray();
         }
+
+        private string ConvertToString(byte[] bytes)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in bytes) sb.AppendFormat("{0:x2}", b);
+            return sb.ToString();
+        }
+        
     }
 }
