@@ -20,13 +20,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1" Background="White">
-            <StackPanel>
-                <TextBox Text="{Binding Foo, FallbackValue=Fooo}"/>
-                <Button Content="Click me" Click="Button_Click"/>
-            </StackPanel>
-            
             <Frame Name="PageDisplay" 
-                   NavigationUIVisibility="Hidden">
+                   NavigationUIVisibility="Hidden"
+                   Content="{Binding CurrentPage}">
                 
             </Frame>
         </Grid>

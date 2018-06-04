@@ -23,6 +23,8 @@ namespace GeneralMerchandise.UI
 
         public new static App Current { get; private set; }
 
+        public IMainView MainView { get; private set; }
+
         public App() : base()
         {
             mutex = new Mutex(true, APPLICATION_NAME, out isNewInstance);
@@ -36,6 +38,14 @@ namespace GeneralMerchandise.UI
             Current = this;
         }
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            MainWindow window = new MainWindow();
+            MainView = (IMainView)window.DataContext;
+            MainView.UserNavigation.Navigate(new Navigation.NavigationItem(Pages.ApplicationPage.Login));
+            window.Show();
+        }
 
     }
 }

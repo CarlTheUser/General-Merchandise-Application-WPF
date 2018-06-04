@@ -8,7 +8,8 @@ namespace GeneralMerchandise.UI.Pages
 {
     public enum ApplicationPage
     {
-        Login = 0,
-        AdministratorPage = 1,
+        Nothing = 0,
+        Login = 1,
+        AdministratorPage = 2,
     }
 }

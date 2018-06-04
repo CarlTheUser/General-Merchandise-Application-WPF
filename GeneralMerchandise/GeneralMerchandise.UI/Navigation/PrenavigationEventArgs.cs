@@ -13,7 +13,17 @@ namespace GeneralMerchandise.UI.Navigation
 
         public ApplicationPage ApplicationPage => ApplicationPage;
 
-        public bool CancelNavigation { get; set; } = false;
+        private bool cancelNavigation = false;
+
+        public bool CancelNavigation
+        {
+            get => cancelNavigation;
+            set
+            {
+                if (cancelNavigation) return;   //once the value is set to true it ignores following changes.
+                cancelNavigation = value;
+            }
+        }
 
         public PrenavigationEventArgs(ApplicationPage page)
         {

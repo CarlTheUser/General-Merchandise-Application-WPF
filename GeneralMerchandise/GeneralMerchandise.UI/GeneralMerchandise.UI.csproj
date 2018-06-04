@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="IApplicationView.cs" />
+    <Compile Include="IMainView.cs" />
     <Compile Include="LoginHandle.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\BaseModel.cs" />

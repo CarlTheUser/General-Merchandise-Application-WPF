@@ -29,11 +29,14 @@ namespace GeneralMerchandise.UI.ViewModel
                 {
                     parameters = value;
                     parameterSet = true;
+                    OnParameterSet(parameters);
                 }
             }
         }
 
         public ViewModel() { }
+
+        protected virtual void OnParameterSet(IDictionary<int, object> parameters) { }
 
 
     }

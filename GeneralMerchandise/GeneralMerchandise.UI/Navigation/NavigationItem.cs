@@ -22,6 +22,8 @@ namespace GeneralMerchandise.UI.Navigation
 
         public IDictionary<int, object> Parameters => parameters;
 
+        public bool HasParameters => parameters != null;
+
         public NavigationItem(ApplicationPage page, bool addToNavigationStack = true, IDictionary<int, object> parameters = null)
         {
             this.navigationPage = page;
