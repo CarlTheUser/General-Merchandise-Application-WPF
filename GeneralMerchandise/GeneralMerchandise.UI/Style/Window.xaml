@@ -53,7 +53,7 @@
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome
-                    CaptionHeight="100"
+                    CaptionHeight="42"
                     ResizeBorderThickness="2"
                     GlassFrameThickness="0"
                     CornerRadius="0"/>
@@ -83,7 +83,7 @@
                             </Border.Effect>
                             <Grid IsHitTestVisible="True">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Name="CaptionRow" Height="100"/>
+                                    <RowDefinition Name="CaptionRow" Height="42"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0"/>
@@ -95,52 +95,6 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto" MaxWidth="50"/>
                                         </Grid.ColumnDefinitions>
-                                        <Grid Name="Container"
-                                              Height="42"
-                                              Grid.Column="0"
-                                              VerticalAlignment="Bottom"
-                                              WindowChrome.IsHitTestVisibleInChrome="True">
-                                            <Grid.Resources>
-                                                <Style TargetType="FrameworkElement"
-                                                       x:Key="Spaced">
-                                                    <Setter Property="Margin" Value="8 5"/>
-                                                </Style>
-                                            </Grid.Resources>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Button Margin="4 3"
-                                                    Padding="8"
-                                                    Width="46"
-                                                    WindowChrome.IsHitTestVisibleInChrome="True"
-                                                    Grid.Column="0"
-                                                    x:Name="BackButton"
-                                                    Background="Transparent"
-                                                    Style="{StaticResource PlainButton}">
-                                                <Button.Content>
-                                                    <Image Source="{StaticResource BackIcon}" 
-                                                           Stretch="Uniform"/>
-                                                </Button.Content>
-                                            </Button>
-                                            <Button Margin="3 2"
-                                                    Padding="8"
-                                                    Width="46"
-                                                    WindowChrome.IsHitTestVisibleInChrome="True"
-                                                    Grid.Column="1"
-                                                    x:Name="HomeButton"
-                                                    Background="Transparent"
-                                                    Style="{StaticResource PlainButton}">
-                                                <Button.Content>
-                                                    <Image Source="{StaticResource HomeIcon}" 
-                                                           Stretch="Uniform"/>
-                                                </Button.Content>
-                                            </Button>
-                                            <ui:UserDisplay Grid.Column="2"
-                                                            Margin="3 2"/>
-
-                                        </Grid>
                                         <TextBlock 
                                             Grid.Column="0"
                                             Grid.ColumnSpan="3"

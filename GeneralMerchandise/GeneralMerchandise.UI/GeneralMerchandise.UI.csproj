@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="IApplicationView.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="LoginHandle.cs" />

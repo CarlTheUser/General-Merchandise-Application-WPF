@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\Login.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\IIdentifiable.cs" />
@@ -63,7 +64,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\" />
+    <Folder Include="Login\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

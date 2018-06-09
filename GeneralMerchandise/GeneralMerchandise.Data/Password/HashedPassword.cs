@@ -10,25 +10,29 @@ namespace GeneralMerchandise.Data.Password
     {
         private static readonly int SALT_SIZE = 16;
 
+        /// <inheritdoc />
         SecuredPassword IHashedPassword.HashPassword(string password)
         {
-            HashAlgorithm hash = new SHA1CryptoServiceProvider();
             RandomNumberGenerator rng = new RNGCryptoServiceProvider();
             byte[] salt = CreateSalt(rng, SALT_SIZE);
-            byte[] passwordBytes = Encoding.ASCII.GetBytes(password);
-            return new SecuredPassword(ConvertToString(salt), ConvertToString(hash.ComputeHash(PreppendBytes(salt, passwordBytes))));
+            string saltString = ConvertToString(salt);
+            return new SecuredPassword(saltString, ConvertToString(GetHash(saltString, password)));
         }
-
-
+        
         public bool VerifyPassword(string input, SecuredPassword password)
         {
-            throw new NotImplementedException();
+            return ConvertToString(
+                GetHash(password.Salt.GetStringFinalize(),input)
+                ).Equals(password.HashedPassword.GetStringFinalize());
         }
 
-        //public bool VerifyPassword(string input, string storedPassword)
-        //{
-        //    return storedPassword.Equals(HashPassword(input));
-        //}
+        public byte[] GetHash(string salt, string password)
+        {
+            byte[] passwordBytes = Encoding.ASCII.GetBytes(password);
+            byte[] saltBytes = Encoding.ASCII.GetBytes(salt);
+            HashAlgorithm hash = new SHA1CryptoServiceProvider();
+            return hash.ComputeHash(PreppendBytes(saltBytes, passwordBytes));
+        }
 
         private static byte[] CreateSalt(RandomNumberGenerator randomNumberGenerator, int size)
         {

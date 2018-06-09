@@ -20,7 +20,6 @@ namespace GeneralMerchandise.UI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Grid MiscContainer;
 
         public MainWindow()
         {
@@ -31,7 +30,6 @@ namespace GeneralMerchandise.UI
         {
             Button closeButton = (Button)this.Template.FindName("CloseButton", this);
             closeButton.Click += (s, ev) => this.Close();
-            MiscContainer = (Grid)this.Template.FindName("Container", this);
             this.EnableBlur();
         }
 

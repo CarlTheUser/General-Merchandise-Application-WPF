@@ -1,13 +1,14 @@
 ﻿using GeneralMerchandise.UI.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI
 {
-    internal class LoginHandle
+    internal class LoginHandle : INotifyPropertyChanged
     {
 
         #region Singleton
@@ -32,10 +33,16 @@ namespace GeneralMerchandise.UI
         /// to changes.
         /// </summary>
         public event EventHandler AccountLoggedOut;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
 
         public AccountModel CurrentAccount { get; private set; }
+
+        public bool HasLogin
+        {
+            get => true;
+        }
 
         private LoginHandle() { }
 
@@ -57,6 +64,8 @@ namespace GeneralMerchandise.UI
             {
                 //Log no listener state
             }
+            OnNotifyPropertyChanged("HasLogin");
+            OnNotifyPropertyChanged("CurrentAccount");
         }
 
         private void OnLogOut()
@@ -66,8 +75,15 @@ namespace GeneralMerchandise.UI
             {
                 //Log no listener
             }
+            OnNotifyPropertyChanged("HasLogin");
+            OnNotifyPropertyChanged("CurrentAccount");
         }
         
+        private void OnNotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         internal class AccountLoggedInEventArgs : EventArgs
         {
             private readonly AccountModel accountModel;

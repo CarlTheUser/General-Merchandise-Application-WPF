@@ -35,11 +35,18 @@ namespace GeneralMerchandise.UI.ViewModel
 
         public bool HasBackStack => navigationStack.Count > 0;
 
-
+        public bool HomeNavigationVisible
+        {
+            get => true;
+        }
+        
         public MainWindowViewModel()
         {
-
+            LoginHandle.Instance.AccountLoggedIn += Instance_AccountLoggedIn;
+            LoginHandle.Instance.AccountLoggedOut += Instance_AccountLoggedOut;
         }
+
+        #region Public Behaviors
 
         public bool Navigate(NavigationItem navigationItem)
         {
@@ -73,6 +80,10 @@ namespace GeneralMerchandise.UI.ViewModel
             
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void ClearNavigationStack() => navigationStack.Clear();
 
         private bool CheckCancelNavigation(ApplicationPage page)
@@ -86,5 +97,20 @@ namespace GeneralMerchandise.UI.ViewModel
         {
             return (BasePage)Activator.CreateInstance(BasePage.ApplicationPageRegistry[applicationPage]);
         }
+
+        #endregion
+
+        #region Event Handlers
+        private void Instance_AccountLoggedIn(object sender, LoginHandle.AccountLoggedInEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Instance_AccountLoggedOut(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

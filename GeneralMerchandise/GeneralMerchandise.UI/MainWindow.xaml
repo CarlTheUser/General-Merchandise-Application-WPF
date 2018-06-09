@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GeneralMerchandise.UI"
         xmlns:viewmodel="clr-namespace:GeneralMerchandise.UI.ViewModel"
+        xmlns:conv="clr-namespace:GeneralMerchandise.UI.Converter"
         mc:Ignorable="d"
         WindowState="Maximized"
         Title="Base App" Height="450" Width="800"
@@ -13,14 +14,54 @@
     <Window.DataContext>
         <viewmodel:MainWindowViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolToVisibility"/>
+    </Window.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1" Background="White">
+        <Grid Grid.Column="1" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal">
+                <Button Margin="4 3"
+                        Padding="8"
+                        Width="46"
+                        WindowChrome.IsHitTestVisibleInChrome="True"
+                        x:Name="BackButton"
+                        Background="Transparent"
+                        Style="{StaticResource PlainButton}"
+                        Visibility="{Binding HasBackStack, Converter={StaticResource boolToVisibility}}">
+                    <Button.Content>
+                        <Image Source="{StaticResource BackIcon}" 
+                               Stretch="Uniform"/>
+                    </Button.Content>
+                </Button>
+                <Button Margin="3 2"
+                        Padding="8"
+                        Width="46"
+                        WindowChrome.IsHitTestVisibleInChrome="True"
+                        x:Name="HomeButton"
+                        Background="Transparent"
+                        Style="{StaticResource PlainButton}"
+                        Visibility="{Binding HomeNavigationVisible, Converter={StaticResource boolToVisibility}}">
+                    <Button.Content>
+                        <Image Source="{StaticResource HomeIcon}" 
+                               Stretch="Uniform"/>
+                    </Button.Content>
+                </Button>
+                <local:UserDisplay Margin="3 2"
+                                   Visibility="{Binding Source={x:Static local:LoginHandle.Instance}, Path=HasLogin, Converter={StaticResource boolToVisibility}}"/>
+
+            </StackPanel>
             <Frame Name="PageDisplay" 
+                   Grid.Row="1"
                    NavigationUIVisibility="Hidden"
                    Content="{Binding CurrentPage}">
                 
