@@ -143,6 +143,17 @@
                         </Rectangle>
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter 
+                                TargetName="Mask"
+                                Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush 
+                                        Opacity="0.5"
+                                        Color="{StaticResource LightGray}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter 
                                 TargetName="Mask"

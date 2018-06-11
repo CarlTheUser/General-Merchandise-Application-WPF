@@ -119,6 +119,9 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="a:Hint.PasswordBoxHasValueProperty" Value="False">
+                            <Setter TargetName="HintText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
                         <Trigger Property="IsFocused" Value="true">
                             <Setter TargetName="Border" Property="BorderBrush">
                                 <Setter.Value>

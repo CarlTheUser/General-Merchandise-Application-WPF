@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,30 +17,18 @@ using GeneralMerchandise.UI.ViewModel;
 namespace GeneralMerchandise.UI.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for AdministratorHomePage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage, IPasswordContainer
+    public partial class AdministratorHomePage : BasePage
     {
-        public LoginPage()
+        public AdministratorHomePage()
         {
             InitializeComponent();
         }
 
-        public SecureString SecurePassword => PasswordControl.SecurePassword;
-
-        public string Password => PasswordControl.Password;
-
         public override ViewModel.ViewModel GetViewModel()
         {
             return VM;
-        }
-
-        private void BasePage_Initialized(object sender, EventArgs e)
-        {
-            VM.Parameters = new Dictionary<int, object>
-            {
-                { LoginViewModel.PASSWORD_CONTAINER_PARAMETER, this }
-            };
         }
     }
 }

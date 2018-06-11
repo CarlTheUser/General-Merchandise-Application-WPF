@@ -1,4 +1,5 @@
 ﻿using GeneralMerchandise.CommonTypes;
+using GeneralMerchandise.UI.Model;
 using GeneralMerchandise.UI.Navigation;
 using GeneralMerchandise.UI.Pages;
 using System;
@@ -47,7 +48,9 @@ namespace GeneralMerchandise.UI.ViewModel
         {
             get => true;
         }
-        
+
+        private Func<ApplicationPage> HomePageRequestAction = () => ApplicationPage.Nothing;
+
         public MainWindowViewModel()
         {
             LoginHandle.Instance.AccountLoggedIn += Instance_AccountLoggedIn;
@@ -88,7 +91,7 @@ namespace GeneralMerchandise.UI.ViewModel
         public void NavigateHome()
         {
             ClearNavigationStack();
-            //
+            Navigate(new NavigationItem(HomePageRequestAction.Invoke(), false));
         }
 
         #endregion
@@ -114,6 +117,8 @@ namespace GeneralMerchandise.UI.ViewModel
             Navigate(new NavigationItem(ApplicationPage.Login, false));
         }
 
+        private ApplicationPage GetAdministratorHomePage() { return ApplicationPage.AdministratorPage; }
+
         #endregion
 
         #region Event Handlers
@@ -122,7 +127,10 @@ namespace GeneralMerchandise.UI.ViewModel
             AccessType accessType = e.AccountModel.AccessType;
             switch(accessType)
             {
-                //Show screens appropriate for access type
+                case AccessType.Administrator:
+                    HomePageRequestAction = GetAdministratorHomePage;
+                    NavigateHome();
+                    break;
             }
         }
 

@@ -41,7 +41,7 @@ namespace GeneralMerchandise.UI
 
         public bool HasLogin
         {
-            get => true;
+            get => CurrentAccount != null;
         }
 
         private LoginHandle() { }

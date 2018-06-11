@@ -31,6 +31,7 @@ namespace GeneralMerchandise.UI.ViewModel
                     parameterSet = true;
                     OnParameterSet(parameters);
                 }
+                else throw new Exception("Parameter for ViewModel can only be set once");
             }
         }
 
