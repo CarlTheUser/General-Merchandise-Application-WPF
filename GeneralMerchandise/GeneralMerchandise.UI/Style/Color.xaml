@@ -13,7 +13,13 @@
 
     <SolidColorBrush x:Key="DefaultTextBrush" Color="{StaticResource Black}"/>
 
+    <Color x:Key="Gray">#CCCCCC</Color>
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}"/>
+    
     <Color x:Key="LightGray">#ECF0F1</Color>
     <SolidColorBrush x:Key="LightGrayBrush" Color="{StaticResource LightGray}"/>
+
+    <Color x:Key="ExtraDarkGray">#303030</Color>
+    <SolidColorBrush x:Key="ExtraDarkGrayBrush" Color="{StaticResource ExtraDarkGray}"/>
 
 </ResourceDictionary>

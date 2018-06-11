@@ -8,6 +8,19 @@ namespace GeneralMerchandise.UI.ViewModel
 {
     public class LoginViewModel : ViewModel
     {
+        private string username = "username";
 
+        public string Username
+        {
+            get => username;
+            set
+            {
+                if (username != value)
+                {
+                    username = value;
+                    OnPropertyChanged("Username");
+                }
+            }
+        }
     }
 }

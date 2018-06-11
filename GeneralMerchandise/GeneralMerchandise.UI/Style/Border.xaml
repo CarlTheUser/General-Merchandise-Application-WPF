@@ -47,4 +47,23 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Border"
+           x:Key="MetroCardHoverAccent">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Background" Value="{StaticResource LightBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource Gray}"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

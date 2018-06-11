@@ -18,7 +18,8 @@ namespace GeneralMerchandise.UI.Pages
         {
             ApplicationPageRegistry = new Dictionary<ApplicationPage, Type>()
             {
-                { ApplicationPage.Login, typeof(LoginPage) }
+                { ApplicationPage.Login, typeof(LoginPage) },
+                { ApplicationPage.ProfilePage, typeof(ProfilePage) }
             };
         }
 

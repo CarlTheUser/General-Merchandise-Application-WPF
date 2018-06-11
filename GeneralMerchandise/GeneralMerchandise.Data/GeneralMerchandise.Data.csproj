@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Login.cs" />
+    <Compile Include="Client\Data\AccountData.cs" />
+    <Compile Include="Client\LoginOperation.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Login\LoginService.cs" />
+    <Compile Include="Login\StubLoginService.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\IIdentifiable.cs" />
     <Compile Include="Model\PersistibleModel.cs" />
@@ -63,8 +66,6 @@
       <Name>GeneralMerchandise.Logging</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Login\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

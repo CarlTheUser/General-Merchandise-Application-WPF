@@ -17,11 +17,11 @@ using GeneralMerchandise.UI.ViewModel;
 namespace GeneralMerchandise.UI.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for ProfilePage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage
+    public partial class ProfilePage : BasePage
     {
-        public LoginPage()
+        public ProfilePage()
         {
             InitializeComponent();
         }

@@ -1,4 +1,5 @@
 ﻿using GeneralMerchandise.CommonTypes;
+using GeneralMerchandise.Data.Password;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,27 @@ namespace GeneralMerchandise.Data.Model
         private static readonly int DEAFULT_IDENTITY = 0;
 
         
-        public static AccountModel New(string username, string password, AccessType accountType)
+        public static AccountModel New(string username, SecuredPassword password, AccessType accountType)
         {
             return new AccountModel
             {
                 Identity = DEAFULT_IDENTITY,
                 Username = username,
                 Password = password,
-                AccountType = accountType,
+                AccessType = accountType,
                 IsActive = true
+            };
+        }
+
+        public static AccountModel FromDB(int identity, string username, string salt, string passwordhash, AccessType accessType, bool active)
+        {
+            return new AccountModel
+            {
+                Identity = identity,
+                Username = username,
+                Password = new SecuredPassword(salt, passwordhash),
+                AccessType = accessType,
+                IsActive = active
             };
         }
 
@@ -28,8 +41,8 @@ namespace GeneralMerchandise.Data.Model
 
         public override int Identity { get; set; }
         public string Username { get; set; }
-        public string Password { get; private set; }
-        public AccessType AccountType { get; set; }
+        public SecuredPassword Password { get; private set; }
+        public AccessType AccessType { get; set; }
         public bool IsActive { get; set; }
     }
 }

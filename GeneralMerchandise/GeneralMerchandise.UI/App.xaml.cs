@@ -43,7 +43,6 @@ namespace GeneralMerchandise.UI
             base.OnStartup(e);
             MainWindow window = new MainWindow();
             MainView = (IMainView)window.DataContext;
-            MainView.UserNavigation.Navigate(new Navigation.NavigationItem(Pages.ApplicationPage.Login));
             window.Show();
         }
 

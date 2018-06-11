@@ -11,5 +11,6 @@ namespace GeneralMerchandise.UI.Pages
         Nothing = 0,
         Login = 1,
         AdministratorPage = 2,
+        ProfilePage = 3
     }
 }
