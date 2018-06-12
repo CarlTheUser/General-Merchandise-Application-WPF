@@ -29,5 +29,10 @@ namespace GeneralMerchandise.UI
         {
             UserInfoPopUp.IsOpen = true;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UserInfoPopUp.IsOpen = false;
+        }
     }
 }

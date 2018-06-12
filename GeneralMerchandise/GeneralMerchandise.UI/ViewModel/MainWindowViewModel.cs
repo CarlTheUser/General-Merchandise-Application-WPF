@@ -1,4 +1,5 @@
 ﻿using GeneralMerchandise.CommonTypes;
+using GeneralMerchandise.UI.Command;
 using GeneralMerchandise.UI.Model;
 using GeneralMerchandise.UI.Navigation;
 using GeneralMerchandise.UI.Pages;
@@ -42,7 +43,7 @@ namespace GeneralMerchandise.UI.ViewModel
             }
         }
         
-        public bool HasBackStack => navigationStack.Count > 0;
+        public bool HasBackStack => navigationStack.Count > 1;
 
         public bool HomeNavigationVisible
         {
@@ -56,6 +57,8 @@ namespace GeneralMerchandise.UI.ViewModel
             LoginHandle.Instance.AccountLoggedIn += Instance_AccountLoggedIn;
             LoginHandle.Instance.AccountLoggedOut += Instance_AccountLoggedOut;
             DisplayLogin();
+            NavigateBackCommand = new RelayCommand(NavigateBack, () => HasBackStack);
+            NavigateHomeCommand = new RelayCommand(NavigateHome);
         }
 
         #region Public Behaviors
@@ -83,15 +86,22 @@ namespace GeneralMerchandise.UI.ViewModel
 
         public void NavigateBack()
         {
-            NavigationItem Current = navigationStack.Peek();
-
-
+            if(navigationStack.Count > 1)
+            {
+                NavigationItem Current = navigationStack.Pop();
+                NavigationItem Last = navigationStack.Pop();
+                if(!Navigate(Last))
+                {
+                    navigationStack.Push(Last);
+                    navigationStack.Push(Current);
+                }
+            }
         }
 
         public void NavigateHome()
         {
             ClearNavigationStack();
-            Navigate(new NavigationItem(HomePageRequestAction.Invoke(), false));
+            Navigate(new NavigationItem(HomePageRequestAction.Invoke()));
         }
 
         #endregion

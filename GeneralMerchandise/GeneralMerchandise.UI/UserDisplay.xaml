@@ -154,6 +154,7 @@
                             HorizontalAlignment="Right"
                             Style="{StaticResource ActionButton}"
                             Command="{Binding LogoutCommand}"
+                            Click="Button_Click"
                             Foreground="{StaticResource LightBrush}"/>
                         <Button 
                             Margin="3"
@@ -161,7 +162,8 @@
                             MinWidth="70"
                             HorizontalAlignment="Right"
                             Style="{StaticResource PlainButton}"
-                            Command="{Binding ViewProfileCommand}"/>
+                            Command="{Binding ViewProfileCommand}"
+                            Click="Button_Click"/>
                         
                     </StackPanel>
                     
