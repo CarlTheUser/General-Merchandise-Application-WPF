@@ -18,9 +18,31 @@ namespace GeneralMerchandise.Data.Provider
 
         public class SqlFilterCriterion : FilterCriterion<string>
         {
+
+            protected string Operator { get; set; }
+
             public override string Evaluate()
             {
                 return string.Empty;
+            }
+
+            public SqlFilterCriterion And(SqlFilterCriterion filterCriterion)
+            {
+                return null;
+            }
+
+            public SqlFilterCriterion Or(SqlFilterCriterion filterCriterion)
+            {
+                return null;
+            }
+
+        }
+
+        internal class CompoundSqlFilterCriterion : SqlFilterCriterion
+        {
+            public CompoundSqlFilterCriterion()
+            {
+
             }
         }
     }

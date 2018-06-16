@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GeneralMerchandise.UI.ViewModel;
 
 namespace GeneralMerchandise.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IApplicationView
     {
 
         public MainWindow()
@@ -34,6 +35,11 @@ namespace GeneralMerchandise.UI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new MainWindow().Show();
+        }
+
+        public ViewModel.ViewModel GetViewModel()
+        {
+            return VM;
         }
     }
 }

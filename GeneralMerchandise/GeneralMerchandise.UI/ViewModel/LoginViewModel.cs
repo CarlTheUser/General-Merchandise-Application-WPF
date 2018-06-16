@@ -55,7 +55,6 @@ namespace GeneralMerchandise.UI.ViewModel
                     PasswordContainer = passwordContainer as IPasswordContainer;
                 }
             }
-            
         }
 
         private void Login()

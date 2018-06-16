@@ -27,9 +27,9 @@ namespace GeneralMerchandise.UI.Pages
             InitializeComponent();
         }
 
-        public SecureString SecurePassword => PasswordControl.SecurePassword;
+        public SecureString SecurePassword => PasswordField.SecurePassword;
 
-        public string Password => PasswordControl.Password;
+        public string Password => PasswordField.Password;
 
         public override ViewModel.ViewModel GetViewModel()
         {

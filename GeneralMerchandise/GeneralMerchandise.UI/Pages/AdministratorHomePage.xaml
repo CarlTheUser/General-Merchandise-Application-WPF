@@ -12,6 +12,79 @@
         <viewmodel:AdministratorHomeViewModel x:Name="VM"/>
     </Page.DataContext>
     <Grid Background="{StaticResource LightBrush}">
-        <TextBlock FontSize="{StaticResource FontSizeXLarge}" Text="Administrator Home Page"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="{StaticResource FontSizeXLarge}" 
+                   Text="Administrator Home Page" 
+                   VerticalAlignment="Top"/>
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding UIOptions}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  BorderThickness="0"
+                  Padding="20">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource PlainButton}"
+                            DataContext="{Binding}"
+                            Width="200"
+                            Height="170"
+                            Padding="5"
+                            BorderThickness="2"
+                            Margin="{StaticResource MarginSmall}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Command="{Binding ElementName=VM, Path=UINavigationCommand}"
+                            CommandParameter="{Binding}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="{Binding Description}"/>
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="Auto" MaxHeight="50"/>
+                                <RowDefinition Height="Auto" MinHeight="23" MaxHeight="50" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1"
+                                       Text="{Binding Path=Title}"
+                                       FontSize="{StaticResource FontSizeSemiLarge}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis"
+                                       MaxHeight="50"/>
+                            <TextBlock Grid.Row="2"
+                                       Text="{Binding Path=Description}"
+                                       TextWrapping="Wrap"
+                                       FontSize="{StaticResource FontSizeRegular}"/>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
     </Grid>
 </local:BasePage>

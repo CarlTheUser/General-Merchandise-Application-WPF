@@ -60,6 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="AttachedProperties\Hint.cs" />
     <Compile Include="Command\CloseWindowCommand.cs" />
+    <Compile Include="Command\NavigateCommand.cs" />
     <Compile Include="Command\ParameterizedRelayCommand.cs" />
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIModel\MainOption.cs" />
+    <Compile Include="UIModel\HomePageOption.cs" />
     <Compile Include="UserDisplay.xaml.cs">
       <DependentUpon>UserDisplay.xaml</DependentUpon>
     </Compile>

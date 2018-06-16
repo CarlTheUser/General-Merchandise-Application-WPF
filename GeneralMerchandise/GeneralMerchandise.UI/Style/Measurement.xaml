@@ -4,6 +4,8 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
     <System:Double x:Key="WindowBarHeight">100</System:Double>
-    
+    <System:Double x:Key="SpaceSmall">8</System:Double>
+
+    <Thickness x:Key="MarginSmall" Left="{StaticResource SpaceSmall}" Right="{StaticResource SpaceSmall}" Top="{StaticResource SpaceSmall}" Bottom="{StaticResource SpaceSmall}"/>
 
 </ResourceDictionary>

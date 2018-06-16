@@ -30,6 +30,9 @@
         x:Key="PlainButton"
         TargetType="Button"
         BasedOn="{StaticResource Hoverless}">
+        <Setter
+            Property="BorderThickness"
+            Value="1"/>
         <Setter 
             Property="Padding"
             Value="5"/>
@@ -50,7 +53,7 @@
                         <Border
                             Name="ButtonBounds"
                             BorderBrush="Transparent"
-                            BorderThickness="1"
+                            BorderThickness="{TemplateBinding BorderThickness}"
                             Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}">
                             <ContentPresenter
