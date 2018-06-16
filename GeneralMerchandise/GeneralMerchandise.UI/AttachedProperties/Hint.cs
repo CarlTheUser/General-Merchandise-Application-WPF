@@ -25,7 +25,7 @@ namespace GeneralMerchandise.UI.AttachedProperties
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.RegisterAttached("TextProperty", typeof(string), typeof(Hint), new PropertyMetadata(""));
+            DependencyProperty.RegisterAttached("TextProperty", typeof(string), typeof(Hint), new UIPropertyMetadata(string.Empty));
 
         #endregion
 
@@ -76,7 +76,7 @@ namespace GeneralMerchandise.UI.AttachedProperties
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PasswordBoxHasValueProperty =
-            DependencyProperty.RegisterAttached("PasswordBoxHasValueProperty", typeof(bool), typeof(Hint), new PropertyMetadata(false));
+            DependencyProperty.RegisterAttached("PasswordBoxHasValueProperty", typeof(bool), typeof(Hint), new UIPropertyMetadata(false));
 
         #endregion
 

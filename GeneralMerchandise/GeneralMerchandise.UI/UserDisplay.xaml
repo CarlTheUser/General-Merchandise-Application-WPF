@@ -15,46 +15,38 @@
     </UserControl.DataContext>
     <Grid>
         <Button Name="UserButton"
-                Click="UserButton_Click">
-            <Button.Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource PlainButton}">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
-                    <Setter Property="FontFamily" Value="{StaticResource SegoeUI}"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Grid>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                Click="UserButton_Click"
+                Padding="0"
+                Style="{StaticResource PlainButton}"
+                Background="Transparent">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                                        <Ellipse Grid.Column="0"
-                                                 Margin="5"
-                                                 Height="{TemplateBinding Height}" 
-                                                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"
-                                                 Fill="{StaticResource LightGrayBrush}"/>
-                                        <Ellipse Grid.Column="0"
-                                                 Margin="5"
-                                                 x:Name="userPicture" 
-                                                 Height="{TemplateBinding Height}" 
-                                                 Width="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}">
-                                            <Ellipse.Fill>
-                                                <ImageBrush ImageSource="{StaticResource UserIconSmall}"/>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                <Ellipse Grid.Column="0"
+                         Margin="5"
+                         Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+                         Fill="{StaticResource LightGrayBrush}"
+                         VerticalAlignment="Center"/>
+                <Ellipse Grid.Column="0"
+                         Margin="5"
+                         x:Name="userPicture"
+                         Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}"
+                         VerticalAlignment="Center">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="{StaticResource UserIconSmall}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
 
-                                            <!--<Image Grid.Column="0"
+                <!--<Image Grid.Column="0"
                                                    Stretch="UniformToFill"
                                                    Margin="10 0 0 0"
                                                    Height="{TemplateBinding Height}"
                                                    Width="{TemplateBinding Height}"
                                                    Source="{StaticResource UserIcon}"/>-->
-
-                                        <TextBlock Grid.Column="1"
+                <TextBlock Grid.Column="1"
                                                    Margin="10 0 10 0"
                                                    Text="Juan Delacruz Super Ultra Loong Ass Name"
                                                    HorizontalAlignment="Left"
@@ -62,40 +54,12 @@
                                                    TextWrapping="NoWrap"
                                                    TextTrimming="CharacterEllipsis"/>
 
-                                    </Grid>
-                                    <Rectangle Name="Mask" Fill="Transparent">
-                                    </Rectangle>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter 
-                                TargetName="Mask"
-                                Property="Fill">
-                                            <Setter.Value>
-                                                <SolidColorBrush 
-                                        Opacity="0.05"
-                                        Color="Black"/>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="true">
-                                        <Setter 
-                                TargetName="Mask"
-                                Property="Fill">
-                                            <Setter.Value>
-                                                <SolidColorBrush 
-                                        Opacity="0.15"
-                                        Color="Black"/>
-                                            </Setter.Value>
-                                        </Setter>
-
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Style>
+            </Grid>
+            <Button.ToolTip>
+                <ToolTip>
+                    <TextBlock Text="Current User"/>
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
         <Popup StaysOpen="False" x:Name="UserInfoPopUp" AllowsTransparency="True" PlacementTarget="{Binding ElementName=UserButtoon}" Placement="Bottom">
             <Border Style="{StaticResource MetroCard}"

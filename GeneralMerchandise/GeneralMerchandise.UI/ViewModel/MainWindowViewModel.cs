@@ -47,7 +47,7 @@ namespace GeneralMerchandise.UI.ViewModel
 
         public bool HomeNavigationVisible
         {
-            get => true;
+            get => LoginHandle.Instance.HasLogin && ApplicationPage != HomePageRequestAction.Invoke();
         }
 
         private Func<ApplicationPage> HomePageRequestAction = () => ApplicationPage.Nothing;
@@ -77,6 +77,7 @@ namespace GeneralMerchandise.UI.ViewModel
                     ApplicationPage = navigationTarget;
                     CurrentPage = page;
                     OnPropertyChanged("HasBackStack");
+                    OnPropertyChanged("HomeNavigationVisible");
                     return true;
                 }
 

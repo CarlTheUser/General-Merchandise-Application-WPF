@@ -2,9 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:GeneralMerchandise.UI.Style"
                     xmlns:p="clr-namespace:GeneralMerchandise.UI.Properties"
-                    xmlns:ui="clr-namespace:GeneralMerchandise.UI">
+                    xmlns:ui="clr-namespace:GeneralMerchandise.UI"
+                    xmlns:command="clr-namespace:GeneralMerchandise.UI.Command">
 
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <command:CloseWindowCommand x:Key="CloseCommand"/>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="Window" 
            x:Key="BorderlessTransparentWindow">
@@ -115,7 +120,9 @@
                                                 Grid.Column="1"
                                                 x:Name="CloseButton"
                                                 Background="Transparent"
-                                                Style="{StaticResource PlainButton}">
+                                                Style="{StaticResource PlainButton}"
+                                                Command="{StaticResource CloseCommand}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window} }">
                                                 <Button.Content>
                                                     <Image Source="{StaticResource CloseIcon}" 
                                                            Stretch="Uniform"/>

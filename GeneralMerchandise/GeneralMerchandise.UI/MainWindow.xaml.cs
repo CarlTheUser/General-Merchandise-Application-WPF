@@ -28,8 +28,6 @@ namespace GeneralMerchandise.UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Button closeButton = (Button)this.Template.FindName("CloseButton", this);
-            closeButton.Click += (s, ev) => this.Close();
             this.EnableBlur();
         }
 

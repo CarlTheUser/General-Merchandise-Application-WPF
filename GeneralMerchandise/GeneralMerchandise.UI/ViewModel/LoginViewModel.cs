@@ -65,7 +65,9 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private bool CanLogin()
         {
-            return Username.Length > 0 && PasswordContainer != null ? PasswordContainer.Password.Length > 0 : true;
+            bool hasUsername = Username.Length > 0;
+            bool hasPassword = PasswordContainer != null ? PasswordContainer.Password.Length > 0 : false;
+            return hasUsername && hasPassword;
         }
 
         private void LoginOperation_LoginSucceed(object sender, LoginOperation.LoginSuccessfulEventArgs e)
