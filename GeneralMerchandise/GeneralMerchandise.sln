@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralMerchandise.Data", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralMerchandise.Logging", "GeneralMerchandise.Logging\GeneralMerchandise.Logging.csproj", "{0515888B-12E4-4AAE-BB81-A7EC6D182004}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralMerchandise.CommonTypes", "GeneralMerchandise.CommonTypes\GeneralMerchandise.CommonTypes.csproj", "{D774348D-2F07-44F6-BC25-4229ED08F3D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralMerchandise.Common", "GeneralMerchandise.CommonTypes\GeneralMerchandise.Common.csproj", "{D774348D-2F07-44F6-BC25-4229ED08F3D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

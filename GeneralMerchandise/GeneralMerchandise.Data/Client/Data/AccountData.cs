@@ -1,4 +1,4 @@
-﻿using GeneralMerchandise.CommonTypes;
+﻿using GeneralMerchandise.Common.Type;
 using System;
 using System.Collections.Generic;
 using System.Linq;

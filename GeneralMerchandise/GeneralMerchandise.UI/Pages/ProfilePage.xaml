@@ -11,7 +11,99 @@
     <Page.DataContext>
         <viewmodel:ProfileViewModel x:Name="VM"/>
     </Page.DataContext>
-    <Grid>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <TextBlock Text="Profile" FontSize="{StaticResource FontSizeXLarge}"/>
+        <ScrollViewer Grid.Row="1" 
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel  Orientation="Vertical" 
+                         Margin=" 15 0">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="123456789" FontSize="{StaticResource FontSizeLarge}"/>
+
+                
+                <!--Profile Image-->
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Left">
+                    <Grid Name="ProfileImageContainer"
+                      Margin=" 0 8"
+                      Height="150">
+                        <Ellipse 
+                         Height="{Binding ElementName=ProfileImageContainer, Path=ActualHeight}"
+                         Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                         Fill="{StaticResource LightGrayBrush}"
+                         VerticalAlignment="Center"/>
+                        <Ellipse 
+                         x:Name="userPicture"
+                         Height="{Binding ElementName=ProfileImageContainer, Path=ActualHeight}"
+                         Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                         VerticalAlignment="Center">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{StaticResource UserIconLarge}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                    <Button Content="Change Image"
+                        Background="{StaticResource LightGrayBrush}"
+                    Style="{StaticResource PlainButton}"
+                        Margin="0 8"/>
+                </StackPanel>
+
+                <!--User Information-->
+                <StackPanel Orientation="Vertical">
+                   
+                    <TextBlock Text="{Binding Fullname, FallbackValue=Juan Delacruz}"
+                           FontSize="{StaticResource FontSizeXLarge}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding UserModel.Gender, FallbackValue=Male}"/>
+                        <TextBlock Text="{Binding UserModel.Age, 
+                            StringFormat={}{0:n} years old, 
+                            FallbackValue=22 years old}"
+                                   Margin="8 0"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding UserModel.Birthdate, 
+                        StringFormat={}{0:MMMM dd yyyy}, 
+                        FallbackValue=April 15 1996}"/>
+                    
+                </StackPanel>
+                
+                <!--User Contact and Address information-->
+                <StackPanel Orientation="Vertical"
+                            Margin="0 15 0 0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="8 0"/>
+                        </Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Margin" Value="0 2"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource ContactIconSmall}"/>
+                        <TextBlock Text="{Binding UserModel.ContactNumber, FallbackValue=09151692356}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource MailIconSmall}"/>
+                        <TextBlock Text="{Binding UserModel.Email, FallbackValue=carlandres18@gmail.com}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource AddressIconSmall}"/>
+                        <TextBlock Text="{Binding UserModel.Email, FallbackValue='Habay, Bacoor, Cavite'}"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+        
     </Grid>
 </local:BasePage>

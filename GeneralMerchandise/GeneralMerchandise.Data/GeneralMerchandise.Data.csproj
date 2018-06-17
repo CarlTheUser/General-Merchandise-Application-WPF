@@ -62,9 +62,9 @@
     <Compile Include="Provider\SqlQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.CommonTypes.csproj">
+    <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.Common.csproj">
       <Project>{d774348d-2f07-44f6-bc25-4229ed08f3d3}</Project>
-      <Name>GeneralMerchandise.CommonTypes</Name>
+      <Name>GeneralMerchandise.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\GeneralMerchandise.Logging\GeneralMerchandise.Logging.csproj">
       <Project>{0515888b-12e4-4aae-bb81-a7ec6d182004}</Project>

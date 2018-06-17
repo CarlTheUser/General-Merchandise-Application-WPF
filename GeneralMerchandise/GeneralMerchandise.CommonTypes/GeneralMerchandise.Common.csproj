@@ -7,8 +7,8 @@
     <ProjectGuid>{D774348D-2F07-44F6-BC25-4229ED08F3D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GeneralMerchandise.CommonTypes</RootNamespace>
-    <AssemblyName>GeneralMerchandise.CommonTypes</AssemblyName>
+    <RootNamespace>GeneralMerchandise.Common</RootNamespace>
+    <AssemblyName>GeneralMerchandise.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessType.cs" />
-    <Compile Include="Gender.cs" />
+    <Compile Include="Type\AccessType.cs" />
+    <Compile Include="Type\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

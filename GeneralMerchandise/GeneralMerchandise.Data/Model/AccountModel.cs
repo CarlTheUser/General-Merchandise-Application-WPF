@@ -1,4 +1,4 @@
-﻿using GeneralMerchandise.CommonTypes;
+﻿using GeneralMerchandise.Common.Type;
 using GeneralMerchandise.Data.Password;
 using System;
 using System.Collections.Generic;
@@ -35,6 +35,11 @@ namespace GeneralMerchandise.Data.Model
                 AccessType = accessType,
                 IsActive = active
             };
+        }
+
+        internal static AccountModel FromDB(int v1, string v2, string sampleSalt, string sampleHash, object administrator, bool v3)
+        {
+            throw new NotImplementedException();
         }
 
         private AccountModel() { }

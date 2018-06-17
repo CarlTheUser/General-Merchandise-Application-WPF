@@ -65,6 +65,7 @@
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\SecureStringHasTextBoolConverter.cs" />
+    <Compile Include="Converter\StringToUriConverter.cs" />
     <Compile Include="IApplicationView.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="IPasswordContainer.cs" />
@@ -78,23 +79,43 @@
     <Compile Include="Pages\AdministratorHomePage.xaml.cs">
       <DependentUpon>AdministratorHomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdministratorSettingsPage.xaml.cs">
+      <DependentUpon>AdministratorSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ApplicationPage.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\NothingPage.xaml.cs">
+      <DependentUpon>NothingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductsPage.xaml.cs">
+      <DependentUpon>ProductsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportsAndAnalysesPage.xaml.cs">
+      <DependentUpon>ReportsAndAnalysesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIModel\HomePageOption.cs" />
     <Compile Include="UserDisplay.xaml.cs">
       <DependentUpon>UserDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdministratorHomeViewModel.cs" />
+    <Compile Include="ViewModel\AdministratorSettingsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\NothingViewModel.cs" />
+    <Compile Include="ViewModel\ProductsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\ReportsAndAnalysesViewModel.cs" />
     <Compile Include="ViewModel\UserDisplayViewModel.cs" />
+    <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="WindowBlur.cs" />
     <Page Include="MainWindow.xaml">
@@ -113,11 +134,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AdministratorSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\NothingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportsAndAnalysesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +228,7 @@
     <Resource Include="Fonts\Podkova-Regular.ttf" />
     <Resource Include="Fonts\SEGOEUI.TTF" />
     <Resource Include="Fonts\SEGUISB.TTF" />
+    <Resource Include="Fonts\fontawesome-webfont.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -215,9 +257,9 @@
     <Resource Include="Images\Icons\menu-black-24.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.CommonTypes.csproj">
+    <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.Common.csproj">
       <Project>{D774348D-2F07-44F6-BC25-4229ED08F3D3}</Project>
-      <Name>GeneralMerchandise.CommonTypes</Name>
+      <Name>GeneralMerchandise.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\GeneralMerchandise.Data\GeneralMerchandise.Data.csproj">
       <Project>{85f08779-008a-4961-9329-04777671eb4f}</Project>
@@ -227,6 +269,39 @@
       <Project>{0515888b-12e4-4aae-bb81-a7ec6d182004}</Project>
       <Name>GeneralMerchandise.Logging</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\settings-black-64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\analysis-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\users-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\settings-thin-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\profile-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\user-black-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\bag-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\info-black-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\phone-call-black-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\mail-black-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\home-black-16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

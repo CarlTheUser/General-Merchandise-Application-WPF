@@ -28,7 +28,7 @@ namespace GeneralMerchandise.Data.Login
             {
                 if(hashedPassword.VerifyPassword(password, securedPassword))
                 {
-                    OnLoginSucceed(AccountModel.FromDB(123234, "admin", sampleSalt, sampleHash, CommonTypes.AccessType.Administrator, true));
+                    OnLoginSucceed(AccountModel.FromDB(123234, "admin", sampleSalt, sampleHash, Common.Type.AccessType.Administrator, true));
                 }
                 else
                 {

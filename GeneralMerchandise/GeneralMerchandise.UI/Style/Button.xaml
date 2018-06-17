@@ -109,6 +109,93 @@
         </Setter>
     </Style>
 
+    <Style
+        x:Key="AccentedPlainButton"
+        TargetType="Button"
+        BasedOn="{StaticResource Hoverless}">
+        <Setter
+            Property="BorderThickness"
+            Value="1"/>
+        <Setter 
+            Property="Padding"
+            Value="5"/>
+        <Setter 
+            Property="Background"
+            Value="{StaticResource LightBrush}"/>
+        <Setter
+            Property="Foreground"
+            Value="{StaticResource BlackBrush}"/>
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center"/>
+        <Setter Property="VerticalContentAlignment"
+                Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border
+                            Name="ButtonBounds"
+                            BorderBrush="Transparent"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <Rectangle Name="Mask" Fill="Transparent">
+                        </Rectangle>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter 
+                                TargetName="Mask"
+                                Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush 
+                                        Opacity="0.05"
+                                        Color="Black"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{Binding Source={x:Static p:Settings.Default}, Path=ThemeColor}"/>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter 
+                                TargetName="ButtonBounds"
+                                Property="BorderBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource Gray}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter 
+                                TargetName="Mask"
+                                Property="Fill">
+                                <Setter.Value>
+                                    <SolidColorBrush 
+                                        Opacity="0.1"
+                                        Color="Black"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter 
+                                TargetName="ButtonBounds"
+                                Property="BorderBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{Binding Source={x:Static p:Settings.Default}, Path=ThemeColor}"/>
+                                </Setter.Value>
+                            </Setter>
+
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ActionButton"
            TargetType="Button"
            BasedOn="{StaticResource Hoverless}">

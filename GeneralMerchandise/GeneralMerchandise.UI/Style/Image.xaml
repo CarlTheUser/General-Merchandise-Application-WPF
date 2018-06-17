@@ -15,6 +15,21 @@
             UriSource="pack://application:,,,/Images/Icons/user-black-32.png"/>
     <BitmapImage 
             x:Key="UserIconMedium"
-            UriSource="pack://application:,,,/Images/Icons/user-black-128.png"/>
+            UriSource="pack://application:,,,/Images/Icons/user-black-128.png"/> 
+    <BitmapImage 
+            x:Key="UserIconLarge"
+            UriSource="pack://application:,,,/Images/Icons/user-black-512.png"/>
+
+    <BitmapImage 
+            x:Key="ContactIconSmall"
+            UriSource="pack://application:,,,/Images/Icons/phone-call-black-16.png"/>
+
+    <BitmapImage 
+            x:Key="MailIconSmall"
+            UriSource="pack://application:,,,/Images/Icons/mail-black-16.png"/>
+    
+    <BitmapImage 
+            x:Key="AddressIconSmall"
+            UriSource="pack://application:,,,/Images/Icons/home-black-16.png"/>
 
 </ResourceDictionary>

@@ -6,6 +6,7 @@
     <FontFamily x:Key="SegoeUISemibold">pack://application;,,,/Fonts/#Segoe UI Semibold</FontFamily>
     <FontFamily x:Key="SegoeUI">pack://application;,,,/Fonts/#Segoe UI</FontFamily>
     <FontFamily x:Key="Podkova">pack://application;,,,/Fonts/#Podkova</FontFamily>
+    <FontFamily x:Key="Iconic">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
 
     <system:Double x:Key="FontSizeRegular">14</system:Double>
     <system:Double x:Key="FontSizeSemiLarge">18</system:Double>

@@ -1,4 +1,4 @@
-﻿using GeneralMerchandise.CommonTypes;
+﻿using GeneralMerchandise.Common.Type;
 using GeneralMerchandise.UI.Command;
 using GeneralMerchandise.UI.Model;
 using GeneralMerchandise.UI.Navigation;

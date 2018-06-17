@@ -11,7 +11,7 @@
         Products,
         Reports,
         Store,
-        Settings
+        AdministratorSettings
         
     }
 }

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneralMerchandise.CommonTypes
+namespace GeneralMerchandise.UI.ViewModel
 {
-    public enum AccessType
+    public class NothingViewModel : ViewModel
     {
-        Cashier = 0,
-        Administrator = 1
     }
 }

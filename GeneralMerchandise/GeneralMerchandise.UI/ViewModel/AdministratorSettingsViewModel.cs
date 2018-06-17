@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneralMerchandise.CommonTypes
+namespace GeneralMerchandise.UI.ViewModel
 {
-    public enum Gender
+    class AdministratorSettingsViewModel : ViewModel
     {
-        Unknown = 0,
-        Male = 1,
-        Female = 2
     }
 }
