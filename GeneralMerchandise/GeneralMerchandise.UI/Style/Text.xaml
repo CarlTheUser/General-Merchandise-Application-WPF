@@ -13,14 +13,14 @@
            x:Key="Heading">
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}"/>
         <Setter Property="FontFamily" Value="{StaticResource SegoeUISemibold}"/>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
     </Style>
 
     <Style TargetType="TextBlock"
            x:Key="SemiLargeNormalText">
         <Setter Property="FontSize" Value="{StaticResource FontSizeSemiLarge}"/>
         <Setter Property="FontFamily" Value="{StaticResource SegoeUI}"/>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
     </Style>
 
 

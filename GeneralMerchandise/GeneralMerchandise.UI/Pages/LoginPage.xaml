@@ -19,6 +19,7 @@
         <Grid VerticalAlignment="Center"
               HorizontalAlignment="Center"
               MinWidth="175">
+
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -29,10 +30,12 @@
                      a:Hint.TextProperty="Username"
                      Text="{Binding Username}"
                      Style="{StaticResource FlatTextBox}"
+                     FontSize="{StaticResource FontSizeRegular}"
                      Margin="4"/>
             <PasswordBox Grid.Row="1" 
                          Name="PasswordField" 
                          a:Hint.TextProperty="Password"
+                         FontSize="{StaticResource FontSizeRegular}"
                          Style="{StaticResource FlatPasswordBox}" Margin="4"/>
             
             <Button Grid.Row="2" Foreground="{StaticResource LightGrayBrush}"

@@ -11,7 +11,8 @@
     <Color x:Key="Black">#666</Color>
     <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
 
-    <SolidColorBrush x:Key="DefaultTextBrush" Color="{StaticResource Black}"/>
+    <Color x:Key="DarkTextColor">#323232</Color>
+    <SolidColorBrush x:Key="DefaultTextBrush" Color="{StaticResource DarkTextColor}"/>
 
     <Color x:Key="Gray">#CCCCCC</Color>
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}"/>

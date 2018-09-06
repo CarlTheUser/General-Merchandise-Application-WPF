@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.Data.Client
 {
-    public class LoginOperation
+    public sealed class LoginOperation
     {
         public event EventHandler<LoginSuccessfulEventArgs> LoginSucceed;
 

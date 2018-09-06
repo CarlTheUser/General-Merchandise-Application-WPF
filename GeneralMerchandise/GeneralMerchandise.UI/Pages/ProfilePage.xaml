@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GeneralMerchandise.UI.Pages"
-                xmlns:viewmodel="clr-namespace:GeneralMerchandise.UI.ViewModel"
-                mc:Ignorable="d" 
+      xmlns:viewmodel="clr-namespace:GeneralMerchandise.UI.ViewModel"
+      xmlns:a="clr-namespace:GeneralMerchandise.UI.AttachedProperties"
+      mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
     <Page.DataContext>
@@ -21,13 +22,15 @@
                       HorizontalScrollBarVisibility="Hidden"
                       VerticalScrollBarVisibility="Auto">
             <StackPanel  Orientation="Vertical" 
-                         Margin=" 15 0">
+                         Margin=" 35 0">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
                     </Style>
                 </StackPanel.Resources>
-                <TextBlock Text="123456789" FontSize="{StaticResource FontSizeLarge}"/>
+                <TextBlock Text="123456789" 
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Margin="0 18"/>
 
                 
                 <!--Profile Image-->
@@ -52,54 +55,133 @@
                         </Ellipse>
                     </Grid>
                     <Button Content="Change Image"
-                        Background="{StaticResource LightGrayBrush}"
-                    Style="{StaticResource PlainButton}"
-                        Margin="0 8"/>
+                            Background="{StaticResource LightGrayBrush}"
+                            Style="{StaticResource PlainButton}"
+                            Padding="12 8"
+                            Margin="0 8"/>
                 </StackPanel>
 
-                <!--User Information-->
-                <StackPanel Orientation="Vertical">
-                   
-                    <TextBlock Text="{Binding Fullname, FallbackValue=Juan Delacruz}"
+                <!--User Information container-->
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Left"
+                            Margin="0 18">
+                    <!--User Information-->
+                    <StackPanel Orientation="Vertical">
+
+                        <TextBlock Text="{Binding Fullname, FallbackValue=Juan Delacruz}"
                            FontSize="{StaticResource FontSizeXLarge}"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding UserModel.Gender, FallbackValue=Male}"/>
-                        <TextBlock Text="{Binding UserModel.Age, 
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding UserModel.Gender, FallbackValue=Male}"/>
+                            <TextBlock Text="{Binding UserModel.Age, 
                             StringFormat={}{0:n} years old, 
                             FallbackValue=22 years old}"
                                    Margin="8 0"/>
-                    </StackPanel>
-                    <TextBlock Text="{Binding UserModel.Birthdate, 
+                        </StackPanel>
+                        <TextBlock Text="{Binding UserModel.Birthdate, 
                         StringFormat={}{0:MMMM dd yyyy}, 
                         FallbackValue=April 15 1996}"/>
-                    
-                </StackPanel>
-                
-                <!--User Contact and Address information-->
-                <StackPanel Orientation="Vertical"
-                            Margin="0 15 0 0">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="VerticalAlignment" Value="Center"/>
-                            <Setter Property="Margin" Value="8 0"/>
-                        </Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Margin" Value="0 2"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource ContactIconSmall}"/>
-                        <TextBlock Text="{Binding UserModel.ContactNumber, FallbackValue=09151692356}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource MailIconSmall}"/>
-                        <TextBlock Text="{Binding UserModel.Email, FallbackValue=carlandres18@gmail.com}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource AddressIconSmall}"/>
-                        <TextBlock Text="{Binding UserModel.Email, FallbackValue='Habay, Bacoor, Cavite'}"/>
+
                     </StackPanel>
 
+                    <!--User Contact and Address information-->
+                    <StackPanel Orientation="Vertical"
+                            Margin="0 15 0 0">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="8 0"/>
+                            </Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0 2"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource ContactIconSmall}"/>
+                            <TextBlock Text="{Binding UserModel.ContactNumber, FallbackValue=09151692356}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource MailIconSmall}"/>
+                            <TextBlock Text="{Binding UserModel.Email, FallbackValue=carlandres18@gmail.com}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource AddressIconSmall}"/>
+                            <TextBlock Text="{Binding UserModel.Email, FallbackValue='Habay, Bacoor, Cavite'}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <Button Content="Edit Info"
+                            Foreground="{StaticResource LightBrush}"
+                            Padding="12 8"
+                            Style="{StaticResource ActionButton}"
+                            Margin="0 12"
+                            HorizontalAlignment="Left"/>
+                </StackPanel>
+                
+                <!--User Information form-->
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Left">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBox"
+                               BasedOn="{StaticResource FlatTextBox}">
+                            <Setter Property="Width" Value="200"/>
+                            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+                        </Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0 18 0 8"/>
+                            <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0 0 12 0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Firstname"/>
+                            <TextBox Text="{Binding UserModel.Firstname}"
+                             a:Hint.TextProperty="Firstname"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Middlename"/>
+                            <TextBox Text="{Binding UserModel.Middlename}"
+                             a:Hint.TextProperty="Middlename"/>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Lastname"/>
+                            <TextBox Text="{Binding UserModel.Lastname}"
+                             a:Hint.TextProperty="Lastname"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock Text="Contact Number"/>
+                    <TextBox a:Hint.TextProperty="Contact Number"
+                             HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="Email"/>
+                    <TextBox a:Hint.TextProperty="Email"
+                             HorizontalAlignment="Left"/>
+
+                    <TextBlock Text="Address"/>
+                    <TextBox a:Hint.TextProperty="Address"
+                             HorizontalAlignment="Left"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 18 0 10">
+                        <Button Content="Cancel"
+                                Style="{StaticResource PlainButton}"
+                                Padding="12 8"
+                                Margin="0 0 12 0"/>
+                        <Button Content="Apply Edit"
+                                Foreground="{StaticResource LightBrush}"
+                                Padding="12 8"
+                                Style="{StaticResource ActionButton}"/>
+                    </StackPanel>
+                    
                 </StackPanel>
 
             </StackPanel>

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Client\Data\AccountData.cs" />
     <Compile Include="Client\LoginOperation.cs" />
+    <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Login\LoginService.cs" />
     <Compile Include="Login\StubLoginService.cs" />
@@ -58,6 +59,10 @@
     <Compile Include="Password\SecuredStringUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Password\HashedPassword.cs" />
+    <Compile Include="Provider\MySql\MySQLProvider.cs" />
+    <Compile Include="Provider\SQLCaller.cs" />
+    <Compile Include="Provider\ISQLProvider.cs" />
+    <Compile Include="Provider\MySql\AccountQuery.cs" />
     <Compile Include="Provider\Query.cs" />
     <Compile Include="Provider\SqlQuery.cs" />
   </ItemGroup>
@@ -71,8 +76,6 @@
       <Name>GeneralMerchandise.Logging</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Provider\MySql\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

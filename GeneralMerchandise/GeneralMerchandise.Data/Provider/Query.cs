@@ -11,12 +11,18 @@ namespace GeneralMerchandise.Data.Provider
 
         public abstract IEnumerable<TModel> Execute();
 
-        public abstract Query<TModel, TQueryType> Filter(params FilterCriterion<TQueryType>[] filterCritria);
+        public FilterCriterion<TQueryType> Filter { get; set; }
 
-        public abstract Query<TModel, TQueryType> Order(params OrderCriterion<TQueryType>[] orderCriteria);
+        public OrderCriterion<TQueryType> Ordering { get; set; }
 
-        public abstract Query<TModel, TQueryType> Group(params GroupCriterion<TQueryType>[] groupCriteria);
-        
+        public GroupCriterion<TQueryType> Grouping { get; set; }
+
+        //public abstract Query<TModel, TQueryType> Filter(FilterCriterion<TQueryType> filterCritria);
+
+        //public abstract Query<TModel, TQueryType> Order(params OrderCriterion<TQueryType>[] orderCriteria);
+
+        //public abstract Query<TModel, TQueryType> Group(params GroupCriterion<TQueryType>[] groupCriteria);
+
         public abstract class FilterCriterion<T>
         {
             public abstract T Evaluate();

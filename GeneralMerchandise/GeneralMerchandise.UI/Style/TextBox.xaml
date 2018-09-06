@@ -19,7 +19,7 @@
         <Setter Property="MinHeight" Value="20"/>
         <Setter Property="AllowDrop" Value="true"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Foreground" Value="{StaticResource ExtraDarkGrayBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="a:Hint.TextProperty" Value=""/>
         <Setter Property="SelectionBrush">
@@ -85,7 +85,7 @@
         <Setter Property="MinHeight" Value="20"/>
         <Setter Property="AllowDrop" Value="true"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="Foreground" Value="{StaticResource ExtraDarkGrayBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="PasswordChar" Value="•"/>
         <Setter Property="a:Hint.TextProperty" Value=""/>

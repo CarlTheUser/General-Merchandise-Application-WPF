@@ -13,6 +13,9 @@
         <Setter 
             Property="Background"
             Value="Transparent"/>
+        <Setter
+            Property="Foreground"
+            Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -41,7 +44,7 @@
             Value="{StaticResource LightBrush}"/>
         <Setter
             Property="Foreground"
-            Value="{StaticResource BlackBrush}"/>
+            Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="HorizontalContentAlignment"
                 Value="Center"/>
         <Setter Property="VerticalContentAlignment"
@@ -124,7 +127,7 @@
             Value="{StaticResource LightBrush}"/>
         <Setter
             Property="Foreground"
-            Value="{StaticResource BlackBrush}"/>
+            Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="HorizontalContentAlignment"
                 Value="Center"/>
         <Setter Property="VerticalContentAlignment"
@@ -216,7 +219,7 @@
 
         <Setter
             Property="Foreground"
-            Value="{StaticResource BlackBrush}"/>
+            Value="{StaticResource DefaultTextBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>
