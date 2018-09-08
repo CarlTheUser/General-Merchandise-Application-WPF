@@ -10,13 +10,8 @@ namespace GeneralMerchandise.Data.Provider
     internal abstract class SqlQuery<TModel> : Query<TModel, string>
     {
         public override abstract IEnumerable<TModel> Execute();
-
-        //public override abstract Query<TModel, string> Filter(FilterCriterion<string> filterCritria);
-
-        //public abstract override Query<TModel, string> Group(params GroupCriterion<string>[] groupCriteria);
-
-        //public override abstract Query<TModel, string> Order(params OrderCriterion<string>[] orderCriteria);
-
+        
+        
         public abstract class SqlFilterCriterion : FilterCriterion<string>
         {
 
@@ -24,9 +19,18 @@ namespace GeneralMerchandise.Data.Provider
 
             private static readonly string OR_CHAIN = "OR";
 
-            protected string chainType;
+            private string chainType; //Node
 
-            public abstract override string Evaluate();
+            public override string Evaluate()
+            {
+                string filterString = GetSQLClause();
+
+                if (HasChainedCriteria) filterString += " " + chainType + " " + ChainedCriteria.Evaluate(); //Propagates the chain/node to get full filter string
+
+                return filterString;
+            }
+
+            protected abstract string GetSQLClause();
 
             public SqlFilterCriterion ChainedCriteria { get; private set; }
 
@@ -34,19 +38,29 @@ namespace GeneralMerchandise.Data.Provider
 
             public abstract DbParameter[] GetParameters();
 
-            public bool UsesParameter { get; protected set; }
+            public bool UsesParameter { get; protected set; } = false;
 
             public SqlFilterCriterion And(SqlFilterCriterion filterCriterion)
             {
-                ChainedCriteria = filterCriterion;
-                chainType = AND_CHAIN;
+                if(!HasChainedCriteria)
+                {
+                    ChainedCriteria = filterCriterion;
+                    chainType = AND_CHAIN;
+                }
+                else ChainedCriteria.And(filterCriterion);
+
                 return this;
             }
 
             public SqlFilterCriterion Or(SqlFilterCriterion filterCriterion)
             {
-                ChainedCriteria = filterCriterion;
-                chainType = OR_CHAIN;
+                if (!HasChainedCriteria)
+                {
+                    ChainedCriteria = filterCriterion;
+                    chainType = OR_CHAIN;
+                }
+                else ChainedCriteria.Or(filterCriterion);
+
                 return this;
             }
 

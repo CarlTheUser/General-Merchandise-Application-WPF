@@ -59,7 +59,9 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private void Login()
         {
+            new UserOperation();
             LoginOperation.Login(username, PasswordContainer.Password);
+            
         }
 
         private bool CanLogin()
@@ -72,13 +74,19 @@ namespace GeneralMerchandise.UI.ViewModel
         private void LoginOperation_LoginSucceed(object sender, LoginOperation.LoginSuccessfulEventArgs e)
         {
             AccountData account = e.Account;
-            LoginHandle.Instance.LoginAccount(new Model.AccountModel
-            {
-                Id = account.Id,
-                Username = account.Username,
-                AccessType = account.AccessType,
-                IsActive = account.IsActive
-            });
+            LoginHandle.Instance.LoginAccount(
+                Model.AccountModel.FromPersistentStorage(
+                account.Id,
+                account.Username,
+                account.AccessType,
+                account.IsActive));
+            //LoginHandle.Instance.LoginAccount(new Model.AccountModel
+            //{
+            //    Id = account.Id,
+            //    Username = account.Username,
+            //    AccessType = account.AccessType,
+            //    IsActive = account.IsActive
+            //});
         }
 
         private void LoginOperation_LoginFailed(object sender, LoginOperation.LoginFailureEventArgs e)

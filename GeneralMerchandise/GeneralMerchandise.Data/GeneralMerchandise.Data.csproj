@@ -59,6 +59,7 @@
     <Compile Include="Password\SecuredStringUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Password\HashedPassword.cs" />
+    <Compile Include="Provider\MySql\DBConfiguration.cs" />
     <Compile Include="Provider\MySql\MySQLProvider.cs" />
     <Compile Include="Provider\SQLCaller.cs" />
     <Compile Include="Provider\ISQLProvider.cs" />

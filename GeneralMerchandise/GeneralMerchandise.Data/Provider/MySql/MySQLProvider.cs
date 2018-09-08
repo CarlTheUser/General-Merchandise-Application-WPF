@@ -23,6 +23,16 @@ namespace GeneralMerchandise.Data.Provider.MySql
             ConnectionString = connectionString;
         }
 
+        public DbConnection CreateConnection()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DbConnection CreateOpenedConnection()
+        {
+            throw new NotImplementedException();
+        }
+
         public DbConnection CreateConnection(string connectionString)
         {
             return new MySqlConnection(connectionString);
@@ -125,14 +135,6 @@ namespace GeneralMerchandise.Data.Provider.MySql
             }
         }
 
-        public DbConnection CreateConnection()
-        {
-            throw new NotImplementedException();
-        }
-
-        public DbConnection CreateOpenedConnection()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

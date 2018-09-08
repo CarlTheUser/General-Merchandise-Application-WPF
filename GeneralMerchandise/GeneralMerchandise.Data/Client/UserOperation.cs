@@ -10,7 +10,17 @@ namespace GeneralMerchandise.Data.Client
     public sealed class UserOperation
     {
         AccountQuery accountQuery = new AccountQuery();
-        
+
+        public UserOperation()
+        {
+            foo();
+        }
+
+        public void foo()
+        {
+            accountQuery.Filter = new AccountQuery.UsernameFilter("John").And(new AccountQuery.AccessTypeFilter(Common.Type.AccessType.Administrator));
+            accountQuery.Execute();
+        }
     }
 
 

@@ -13,6 +13,11 @@ namespace GeneralMerchandise.Data.Provider
 
         ISQLProvider sqlProvider;
 
+        public SQLCaller(ISQLProvider sqlProvider)
+        {
+            this.sqlProvider = sqlProvider;
+        }
+
         public DataTable Query(string queryString)
         {
             DataTable dt = null;
