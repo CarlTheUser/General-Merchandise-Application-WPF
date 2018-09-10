@@ -8,17 +8,55 @@ namespace GeneralMerchandise.Data.Provider.MySql
 {
     internal class AccountQuery : SqlQuery<AccountModel>
     {
+        #region Static Constants
 
         private static readonly string BaseQuery = 
             "SELECT Id, Username, HashedPassword, Salt, AccessType, IsActive "
             + "FROM Accounts ";
 
+        public static readonly SqlOrderCriterion IdAscOrder = new SqlOrderCriterion("Id");
+
+        public static readonly SqlOrderCriterion IdDescOrder = new SqlOrderCriterion("Id", SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding);
+
+        public static readonly SqlOrderCriterion UsernameAscOrder = new SqlQuery<AccountModel>.SqlOrderCriterion("Username");
+
+        public static readonly SqlOrderCriterion UsernameDescOrder = new SqlQuery<AccountModel>.SqlOrderCriterion("Username", SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding);
+
+        public static readonly SqlOrderCriterion ActiveAscOrder = new SqlQuery<AccountModel>.SqlOrderCriterion("IsActive");
+
+        public static readonly SqlOrderCriterion ActiveDescOrder = new SqlQuery<AccountModel>.SqlOrderCriterion("IsActive", SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding);
+
+        #endregion
+
         private List<AccountModel> MapUser(IDataReader reader)
         {
-            return null;
+            List<AccountModel> accounts = new List<AccountModel>();
+
+            using (reader)
+            {
+                int idColumn = reader.GetOrdinal("Id");
+                int usernameColumn = reader.GetOrdinal("Username");
+                int hashedPasswordColumn = reader.GetOrdinal("HashedPassword");
+                int saltColumn = reader.GetOrdinal("Salt");
+                int accessTypeColumn = reader.GetOrdinal("AccessType");
+                int activeColumn = reader.GetOrdinal("IsActive");
+
+                while(reader.Read())
+                {
+                    accounts.Add(
+                        AccountModel.FromDB(
+                            reader.GetInt32(idColumn),
+                            reader.GetString(usernameColumn),
+                            reader.GetString(saltColumn),
+                            reader.GetString(hashedPasswordColumn),
+                            AccessType.Administrator, //HAHAHA
+                            reader.GetByte(activeColumn) > 0));
+                }
+            }
+
+                return accounts;
         }
         
-
         public override IEnumerable<AccountModel> Execute()
         {
             IEnumerable<AccountModel> accounts = null;
@@ -41,9 +79,9 @@ namespace GeneralMerchandise.Data.Provider.MySql
                     hasParameter = true;
                 }
 
-                while(criterion.HasChainedCriteria)
+                while(criterion.HasNextCriteria)
                 {
-                    criterion = criterion.ChainedCriteria;
+                    criterion = criterion.NextCriteria;
 
                     query += criterion.Evaluate() + " ";
 
@@ -115,6 +153,29 @@ namespace GeneralMerchandise.Data.Provider.MySql
             protected override string GetSQLClause()
             {
                 return "AccessType = @AccessType ";
+            }
+        }
+
+        public class ActiveFilter : SqlFilterCriterion
+        {
+
+            public bool IsActive { get; set; }
+
+            public ActiveFilter(bool active) : this()
+            {
+                IsActive = active;
+            }
+
+            public ActiveFilter() { UsesParameter = true; }
+
+            public override DbParameter[] GetParameters()
+            {
+                return new DbParameter[] { new MySQLProvider().CreateInputParameter("@IsActive", IsActive) };
+            }
+
+            protected override string GetSQLClause()
+            {
+                return "IsActive = @IsActive ";
             }
         }
     }

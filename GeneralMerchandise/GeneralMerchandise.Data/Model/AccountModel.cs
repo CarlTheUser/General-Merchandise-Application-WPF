@@ -12,7 +12,8 @@ namespace GeneralMerchandise.Data.Model
     {
         private static readonly int DEAFULT_IDENTITY = 0;
 
-        
+        #region Static Factory Methods
+
         public static AccountModel New(string username, SecuredPassword password, AccessType accountType)
         {
             return new AccountModel
@@ -37,10 +38,7 @@ namespace GeneralMerchandise.Data.Model
             };
         }
 
-        internal static AccountModel FromDB(int v1, string v2, string sampleSalt, string sampleHash, object administrator, bool v3)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
 
         private AccountModel() { }
 
