@@ -19,7 +19,7 @@ namespace GeneralMerchandise.Data.Client
         public void foo()
         {
             accountQuery.Filter = new AccountQuery.UsernameFilter("John").And(new AccountQuery.AccessTypeFilter(Common.Type.AccessType.Administrator).Or(new AccountQuery.ActiveFilter(true)));
-            accountQuery.Ordering = AccountQuery.IdAscOrder.ChainWith(AccountQuery.ActiveDescOrder);
+            accountQuery.Ordering = AccountQuery.OrderByIdAsc().ChainWith(AccountQuery.OrderByActiveDesc());
             accountQuery.Execute();
         }
     }
