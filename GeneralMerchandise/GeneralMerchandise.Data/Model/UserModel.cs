@@ -12,6 +12,8 @@ namespace GeneralMerchandise.Data.Model
 
         private static readonly int DEFAULT_IDENTITY = 0;
 
+        #region Factory Methods
+
         public static UserModel New(string imageFilename, string firstname, string middlename, string lastname, Gender gender, DateTime birthdate, string contactNumber, string email, string address)
         {
             return new UserModel
@@ -28,6 +30,25 @@ namespace GeneralMerchandise.Data.Model
                 Address = address
             };
         }
+
+        public static UserModel FromDB(int id, string imageFilename, string firstname, string middlename, string lastname, Gender gender, DateTime birthdate, string contactNumber, string email, string address)
+        {
+            return new UserModel
+            {
+                Identity = id,
+                ImageFilename = imageFilename,
+                Firstname = firstname,
+                Middlename = middlename,
+                Lastname = lastname,
+                Gender = gender,
+                BirthDate = birthdate,
+                ContactNumber = contactNumber,
+                Email = email,
+                Address = address
+            };
+        }
+
+        #endregion
 
         private UserModel() { }
 

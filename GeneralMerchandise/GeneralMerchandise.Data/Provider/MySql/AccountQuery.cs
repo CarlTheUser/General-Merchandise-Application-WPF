@@ -37,7 +37,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
         #endregion
 
-        #region Filter Factory Methods
+        #region Order Factory Methods
 
         public static SqlOrderCriterion OrderByIdAsc() { return new SqlOrderCriterion(ID_COLUMN); }
 
@@ -51,10 +51,9 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
         public static SqlOrderCriterion OrderByActiveDesc() { return new SqlQuery<AccountModel>.SqlOrderCriterion(ACTIVE_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
 
-
         #endregion
-
-        private List<AccountModel> MapUser(IDataReader reader)
+        
+        private List<AccountModel> MapAccounts(IDataReader reader)
         {
             List<AccountModel> accounts = new List<AccountModel>();
 
@@ -75,7 +74,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                             reader.GetString(usernameColumn),
                             reader.GetString(saltColumn),
                             reader.GetString(hashedPasswordColumn),
-                            GetAccessType(reader.GetValue(accessTypeColumn)),
+                            GetAccessType(reader.GetByte(accessTypeColumn)),
                             reader.GetByte(activeColumn) > 0));
                 }
             }
@@ -83,15 +82,16 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return accounts;
         }
         
-
-        private AccessType GetAccessType(object o)
+        private AccessType GetAccessType(byte accessType)
         {
-            if(o != DBNull.Value)
+            switch(accessType)
             {
-                return (AccessType)(int)o;
+                case 0: return AccessType.Cashier;
+                case 1: return AccessType.Administrator;
+                default: return AccessType.Cashier;
             }
-            return AccessType.Cashier;
         }
+
         public override IEnumerable<AccountModel> Execute()
         {
             IEnumerable<AccountModel> accounts = null;
@@ -137,7 +137,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             DbCommand command = hasParameter ? provider.CreateCommand(query, parameters.ToArray()) : provider.CreateCommand(query);
            
-            accounts = caller.Get(MapUser, command);
+            accounts = caller.Get(MapAccounts, command);
 
             return accounts;
         }

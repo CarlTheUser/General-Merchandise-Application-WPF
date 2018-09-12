@@ -10,13 +10,9 @@ namespace GeneralMerchandise.Data.Provider
 {
     internal class SQLCaller
     {
+        private readonly ISQLProvider sqlProvider;
 
-        ISQLProvider sqlProvider;
-
-        public SQLCaller(ISQLProvider sqlProvider)
-        {
-            this.sqlProvider = sqlProvider;
-        }
+        public SQLCaller(ISQLProvider sqlProvider) { this.sqlProvider = sqlProvider; }
 
         public DataTable Query(string queryString)
         {
@@ -36,9 +32,9 @@ namespace GeneralMerchandise.Data.Provider
                             dt.Load(dr);
                         }
                     }
-                    catch (Exception exception)
+                    catch
                     {
-                        throw exception;
+                        throw;
                     }
                     finally
                     {
@@ -65,9 +61,9 @@ namespace GeneralMerchandise.Data.Provider
                         dt.Load(dr);
                     }
                 }
-                catch (Exception exception)
+                catch
                 {
-                    throw exception;
+                    throw;
                 }
                 finally
                 {
@@ -89,9 +85,9 @@ namespace GeneralMerchandise.Data.Provider
                     connection.Open();
                     ret = command.ExecuteNonQuery();
                 }
-                catch (Exception exception)
+                catch
                 {
-                    throw exception;
+                    throw;
                 }
                 finally
                 {
@@ -113,9 +109,9 @@ namespace GeneralMerchandise.Data.Provider
                     connection.Open();
                     ret = command.ExecuteNonQuery();
                 }
-                catch (Exception exception)
+                catch
                 {
-                    throw exception;
+                    throw;
                 }
                 finally
                 {
@@ -139,9 +135,9 @@ namespace GeneralMerchandise.Data.Provider
                         connection.Open();
                         obj = command.ExecuteScalar();
                     }
-                    catch (Exception exception)
+                    catch
                     {
-                        throw exception;
+                        throw;
                     }
                     finally
                     {
@@ -164,9 +160,9 @@ namespace GeneralMerchandise.Data.Provider
                     connection.Open();
                     obj = command.ExecuteScalar();
                 }
-                catch (Exception exception)
+                catch 
                 {
-                    throw exception;
+                    throw;
                 }
                 finally
                 {
@@ -192,9 +188,9 @@ namespace GeneralMerchandise.Data.Provider
 
                     temp = mappingMethod.Invoke(command.ExecuteReader());
                 }
-                catch (Exception e)
+                catch 
                 {
-                    throw e;
+                    throw;
                 }
                 finally
                 {

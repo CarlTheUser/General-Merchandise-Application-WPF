@@ -10,8 +10,7 @@ namespace GeneralMerchandise.Data.Provider
     internal abstract class SqlQuery<TModel> : Query<TModel, string>
     {
         public override abstract IEnumerable<TModel> Execute();
-        
-        
+                
         public abstract class SqlFilterCriterion : FilterCriterion<string>
         {
 
@@ -112,7 +111,36 @@ namespace GeneralMerchandise.Data.Provider
             private string GetSqlClause() { return string.Format("{0} {1}", Column, Ordering); }
         }
 
-        
+        public class SqlGroupCriterion : GroupCriterion<string>
+        {
+
+            public string Column { get; set; }
+
+            public SqlGroupCriterion NextCriterion { get; private set; }
+
+            public bool HasNextCriteria => NextCriterion != null;
+
+            internal SqlGroupCriterion(string column) { Column = column; }
+
+            public SqlGroupCriterion ChainWith(SqlGroupCriterion groupCriterion)
+            {
+                if (HasNextCriteria) NextCriterion.ChainWith(groupCriterion);
+                else NextCriterion = groupCriterion;
+                return this;
+            }
+
+            public override string Evaluate()
+            {
+                string returnValue = Column;
+
+                if (HasNextCriteria) returnValue += ", " + NextCriterion.Evaluate();
+
+                return returnValue;
+            }
+
+        }
+
+
 
     }
 }

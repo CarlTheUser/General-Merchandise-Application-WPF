@@ -20,7 +20,7 @@ namespace GeneralMerchandise.Data.Client
 
         public LoginOperation()
         {
-            loginService = new StubLoginService();
+            loginService = new SQLLoginService();
             loginService.LoginSucceed += LoginService_LoginSucceed;
             loginService.LoginFailed += LoginService_LoginFailed;
         }

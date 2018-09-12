@@ -48,6 +48,7 @@
     <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Login\LoginService.cs" />
+    <Compile Include="Login\SQLLoginService.cs" />
     <Compile Include="Login\StubLoginService.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\IIdentifiable.cs" />
@@ -59,13 +60,21 @@
     <Compile Include="Password\SecuredStringUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Password\HashedPassword.cs" />
+    <Compile Include="Provider\AccountPersistence.cs" />
+    <Compile Include="Provider\IModelPersistence.cs" />
     <Compile Include="Provider\MySql\DBConfiguration.cs" />
+    <Compile Include="Provider\MySql\MySQLAccountPersistence.cs" />
+    <Compile Include="Provider\MySql\MySQLProductPersistence.cs" />
     <Compile Include="Provider\MySql\MySQLProvider.cs" />
+    <Compile Include="Provider\MySql\MySQLUserPersistence.cs" />
+    <Compile Include="Provider\MySql\UserQuery.cs" />
+    <Compile Include="Provider\ProductPersistence.cs" />
     <Compile Include="Provider\SQLCaller.cs" />
     <Compile Include="Provider\ISQLProvider.cs" />
     <Compile Include="Provider\MySql\AccountQuery.cs" />
     <Compile Include="Provider\Query.cs" />
     <Compile Include="Provider\SqlQuery.cs" />
+    <Compile Include="Provider\UserPersistence.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.Common.csproj">

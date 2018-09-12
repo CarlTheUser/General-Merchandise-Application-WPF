@@ -25,12 +25,14 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
         public DbConnection CreateConnection()
         {
-            throw new NotImplementedException();
+            return new MySqlConnection(ConnectionString);
         }
 
         public DbConnection CreateOpenedConnection()
         {
-            throw new NotImplementedException();
+            DbConnection connection = new MySqlConnection(ConnectionString);
+            connection.Open();
+            return connection;
         }
 
         public DbConnection CreateConnection(string connectionString)

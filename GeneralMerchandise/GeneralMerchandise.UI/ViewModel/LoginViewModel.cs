@@ -1,4 +1,5 @@
-﻿using GeneralMerchandise.Data.Client;
+﻿using GeneralMerchandise.Common.Type;
+using GeneralMerchandise.Data.Client;
 using GeneralMerchandise.Data.Client.Data;
 using GeneralMerchandise.UI.Command;
 using System;
@@ -59,9 +60,8 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private void Login()
         {
-            new UserOperation();
             LoginOperation.Login(username, PasswordContainer.Password);
-            
+            new UserOperation();
         }
 
         private bool CanLogin()
@@ -74,12 +74,17 @@ namespace GeneralMerchandise.UI.ViewModel
         private void LoginOperation_LoginSucceed(object sender, LoginOperation.LoginSuccessfulEventArgs e)
         {
             AccountData account = e.Account;
+            int id = account.Id;
+            string username = account.Username;
+            AccessType accessType = account.AccessType;
+            bool active = account.IsActive;
+
             LoginHandle.Instance.LoginAccount(
                 Model.AccountModel.FromPersistentStorage(
-                account.Id,
-                account.Username,
-                account.AccessType,
-                account.IsActive));
+                id,
+                username,
+                accessType,
+                active));
             //LoginHandle.Instance.LoginAccount(new Model.AccountModel
             //{
             //    Id = account.Id,

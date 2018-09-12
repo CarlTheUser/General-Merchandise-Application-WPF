@@ -29,7 +29,7 @@ namespace GeneralMerchandise.UI.Model
         {
             Id = id;
             Username = username;
-            AccessType = accessType;
+            AccessType = access;
             IsActive = active;
         }
 
