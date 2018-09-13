@@ -148,7 +148,26 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             return users;
         }
-        
+
+        public class IdFilter : SqlFilterCriterion
+        {
+            public int Id { get; set; }
+
+            public IdFilter() { }
+
+            public IdFilter(int id) { Id = id; }
+
+            public override DbParameter[] GetParameters()
+            {
+                return new DbParameter[] { };
+            }
+
+            protected override string GetSQLClause()
+            {
+                return $"{ID_COLUMN} = {Id} ";
+            }
+        }
+
         public class NameFilter : SqlFilterCriterion
         {
 

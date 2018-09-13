@@ -11,12 +11,29 @@
         WindowState="Maximized"
         Title="Base App" Height="450" Width="800"
         Style="{StaticResource MainWindow}"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Activated="Window_Activated">
     <Window.DataContext>
         <viewmodel:MainWindowViewModel x:Name="VM"/>
     </Window.DataContext>
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="boolToVisibility"/>
+
+        <Storyboard x:Key="sbShowNotification" >
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                             From="0" 
+                             To="1" 
+                             AccelerationRatio="1" 
+                             Duration="0:0:0.5"  />
+        </Storyboard>
+
+        <Storyboard x:Key="sbHideNotification" 
+                    Completed="HideNotification_Completed" >
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" 
+                             From="1" 
+                             To="0" 
+                             Duration="0:0:0.5"/>
+        </Storyboard>
     </Window.Resources>
     
     <Grid>
@@ -78,8 +95,41 @@
                    Grid.Row="1"
                    NavigationUIVisibility="Hidden"
                    Content="{Binding CurrentPage}">
-                
+
             </Frame>
+            <Border x:Name="notificationHandle" 
+                    Panel.ZIndex="2" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"  
+                    Margin="20 20 20 50" 
+                    Opacity="0" 
+                    Background="White" 
+                    Grid.Row="1" >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" 
+                                      BlurRadius="23" 
+                                      Opacity="0.3" 
+                                      Color="Black"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock x:Name="notificationHandleText" 
+                               FontSize="12" 
+                               Text="Notification here" 
+                               Padding="10 6" 
+                               TextWrapping="Wrap" />
+                    <Button x:Name="notificationCloseButton" 
+                            VerticalAlignment="Stretch" 
+                            Height="13" 
+                            Margin="0 0 6 0"
+                            Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" Click="notificationCloseButton_Click" >
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Image Source="{StaticResource CloseIcon}" Stretch="Uniform"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

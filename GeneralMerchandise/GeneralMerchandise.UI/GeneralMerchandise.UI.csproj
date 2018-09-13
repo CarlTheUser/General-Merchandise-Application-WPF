@@ -68,6 +68,7 @@
     <Compile Include="Converter\StringToUriConverter.cs" />
     <Compile Include="IApplicationView.cs" />
     <Compile Include="IMainView.cs" />
+    <Compile Include="INotifiable.cs" />
     <Compile Include="IPasswordContainer.cs" />
     <Compile Include="LoginHandle.cs" />
     <Compile Include="Model\AccountModel.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Navigation\IUserNavigation.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
     <Compile Include="Navigation\PrenavigationEventArgs.cs" />
+    <Compile Include="NotificationHub.cs" />
     <Compile Include="Pages\AdministratorHomePage.xaml.cs">
       <DependentUpon>AdministratorHomePage.xaml</DependentUpon>
     </Compile>

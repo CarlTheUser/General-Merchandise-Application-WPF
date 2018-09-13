@@ -26,14 +26,8 @@ namespace GeneralMerchandise.Data.Provider.MySql
         private static readonly string ACTIVE_COLUMN = "IsActive";
 
         private static readonly string BASE_QUERY =
-            string.Format("SELECT {0}, {1}, {2}, {3}, {4}, {5} FROM {6} ", 
-                ID_COLUMN, 
-                USERNAME_COLUMN, 
-                HASHEDPASSWORD_COLUMN, 
-                SALT_COLUMN, 
-                ACCESSTYPE_COLUMN, 
-                ACTIVE_COLUMN, 
-                TABLE_NAME);
+            $"SELECT {ID_COLUMN}, {USERNAME_COLUMN}, {HASHEDPASSWORD_COLUMN}, {SALT_COLUMN}, {ACCESSTYPE_COLUMN}, {ACTIVE_COLUMN} " +
+            $"FROM {TABLE_NAME} ";
 
         #endregion
 

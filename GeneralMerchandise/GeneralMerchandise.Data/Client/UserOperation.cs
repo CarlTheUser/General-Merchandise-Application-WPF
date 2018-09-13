@@ -1,4 +1,5 @@
-﻿using GeneralMerchandise.Data.Model;
+﻿using GeneralMerchandise.Data.Client.Data;
+using GeneralMerchandise.Data.Model;
 using GeneralMerchandise.Data.Provider.MySql;
 using System;
 using System.Collections.Generic;
@@ -10,28 +11,64 @@ namespace GeneralMerchandise.Data.Client
 {
     public sealed class UserOperation
     {
-        AccountQuery accountQuery = new AccountQuery();
+        public UserOperation() { } 
 
-        UserQuery userQuery = new UserQuery();
-
-        public UserOperation()
+        public void Edit(UserData user)
         {
-            foo();
+
         }
 
-        public void foo()
+        public IEnumerable<UserData> GetUsers()
         {
-            //accountQuery.Filter = new AccountQuery.UsernameFilter("John").And(new AccountQuery.AccessTypeFilter(Common.Type.AccessType.Administrator).Or(new AccountQuery.ActiveFilter(true)));
-            //accountQuery.Ordering = AccountQuery.OrderByIdAsc().ChainWith(AccountQuery.OrderByActiveDesc());
-            //accountQuery.Execute();
+            UserQuery query = new UserQuery();
 
-            //userQuery.Filter = new UserQuery.GenderFilter(Common.Type.Gender.Male);
-            //userQuery.Execute();
+            List<UserModel> userModels = query.Execute().ToList();
 
-            //UserModel user = UserModel.New("Image.jpeg", "Juan", "", "Dela Cruz", Common.Type.Gender.Male, DateTime.Now, "09154268798", "juan@yahoo.com", "Cavite");
-            //user.Identity = 1;
-            //new MySQLUserPersistence().Save(user);
+            return from user in userModels
+                   select new UserData()
+                   {
+                       Id = user.Identity,
+                       ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
+                       Firstname = user.Firstname,
+                       Middlename = user.Middlename,
+                       Lastname = user.Lastname,
+                       Gender = user.Gender,
+                       BirthDate = user.BirthDate,
+                       ContactNumber = user.ContactNumber,
+                       Email = user.Email,
+                       Address = user.Address
+                   };
         }
+
+        public UserData GetFromAccount(AccountData account)
+        {
+            if(account == null)
+            {
+                throw new ArgumentNullException("account");
+            }
+            UserQuery query = new UserQuery();
+            query.Filter = new UserQuery.IdFilter(account.Id);
+
+            UserModel user = query.Execute().ToList()[0];
+
+            if (user == null) return null;
+
+            return new UserData()
+            {
+                Id = user.Identity,
+                ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
+                Firstname = user.Firstname,
+                Middlename = user.Middlename,
+                Lastname = user.Lastname,
+                Gender = user.Gender,
+                BirthDate = user.BirthDate,
+                ContactNumber = user.ContactNumber,
+                Email = user.Email,
+                Address = user.Address
+            };
+        }
+
+
     }
 
 

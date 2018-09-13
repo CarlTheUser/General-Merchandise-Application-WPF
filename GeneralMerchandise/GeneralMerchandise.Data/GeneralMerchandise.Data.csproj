@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Data\AccountData.cs" />
+    <Compile Include="Client\Data\UserData.cs" />
     <Compile Include="Client\LoginOperation.cs" />
     <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Model\IIdentifiable.cs" />
     <Compile Include="Model\PersistibleModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
+    <Compile Include="Model\TagModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Password\IHashedPassword.cs" />
     <Compile Include="Password\SecuredPassword.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="Provider\MySql\MySQLProductPersistence.cs" />
     <Compile Include="Provider\MySql\MySQLProvider.cs" />
     <Compile Include="Provider\MySql\MySQLUserPersistence.cs" />
+    <Compile Include="Provider\MySql\ProductTaggingsQuery.cs" />
+    <Compile Include="Provider\MySql\TagQuery.cs" />
     <Compile Include="Provider\MySql\UserQuery.cs" />
     <Compile Include="Provider\ProductPersistence.cs" />
     <Compile Include="Provider\SQLCaller.cs" />

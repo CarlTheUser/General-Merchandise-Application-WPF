@@ -2,6 +2,7 @@
 using GeneralMerchandise.Data.Client;
 using GeneralMerchandise.Data.Client.Data;
 using GeneralMerchandise.UI.Command;
+using GeneralMerchandise.UI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,29 +75,19 @@ namespace GeneralMerchandise.UI.ViewModel
         private void LoginOperation_LoginSucceed(object sender, LoginOperation.LoginSuccessfulEventArgs e)
         {
             AccountData account = e.Account;
-            int id = account.Id;
-            string username = account.Username;
-            AccessType accessType = account.AccessType;
-            bool active = account.IsActive;
 
             LoginHandle.Instance.LoginAccount(
-                Model.AccountModel.FromPersistentStorage(
-                id,
-                username,
-                accessType,
-                active));
-            //LoginHandle.Instance.LoginAccount(new Model.AccountModel
-            //{
-            //    Id = account.Id,
-            //    Username = account.Username,
-            //    AccessType = account.AccessType,
-            //    IsActive = account.IsActive
-            //});
+                AccountModel.FromPersistentStorage(
+                    account.Id, 
+                    account.Username, 
+                    account.AccessType, 
+                    account.IsActive));
+            NotificationHub.GetInstance().ShowMessage("Account logged in");
         }
 
         private void LoginOperation_LoginFailed(object sender, LoginOperation.LoginFailureEventArgs e)
         {
-            //Show message
+            NotificationHub.GetInstance().ShowMessage(e.Message);
         }
 
         
