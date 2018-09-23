@@ -38,7 +38,7 @@ namespace GeneralMerchandise.UI
         public void ShowMessage(string message)
         {
             try { CurrentNotificationHandler.ShowMessage(message); }
-            catch { MessageBox.Show(message); }
+            catch { MessageBox.Show(message); } // if current handler is null or error
         }
 
         public void Prompt(string message)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI.Model
 {
-    internal abstract class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

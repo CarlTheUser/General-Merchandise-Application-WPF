@@ -62,7 +62,6 @@ namespace GeneralMerchandise.UI.ViewModel
         private void Login()
         {
             LoginOperation.Login(username, PasswordContainer.Password);
-            new UserOperation();
         }
 
         private bool CanLogin()

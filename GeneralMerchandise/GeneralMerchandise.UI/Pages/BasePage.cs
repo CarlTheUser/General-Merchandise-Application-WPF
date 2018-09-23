@@ -25,7 +25,8 @@ namespace GeneralMerchandise.UI.Pages
                 { ApplicationPage.Products, typeof(ProductsPage) },
                 { ApplicationPage.Users, typeof(UsersPage) },
                 { ApplicationPage.AdministratorSettings, typeof(AdministratorSettingsPage) },
-                { ApplicationPage.Reports, typeof(ReportsAndAnalysesPage) }
+                { ApplicationPage.Reports, typeof(ReportsAndAnalysesPage) },
+                { ApplicationPage.Register, typeof(AccountCreationPage) }
             };
         }
 

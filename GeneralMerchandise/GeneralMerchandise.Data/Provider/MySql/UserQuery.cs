@@ -72,7 +72,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
                 while(reader.Read())
                 {
-                    users.Add(UserModel.FromDB(
+                    users.Add(UserModel.Existing(
                         reader.GetInt32(idColumn),
                         reader.GetString(imageFilenameColumn),
                         reader.GetString(firstnameColumn),

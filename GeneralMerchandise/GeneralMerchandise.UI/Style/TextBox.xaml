@@ -3,10 +3,13 @@
                     xmlns:local="clr-namespace:GeneralMerchandise.UI.Style"
                     xmlns:p="clr-namespace:GeneralMerchandise.UI.Properties"
                     xmlns:a="clr-namespace:GeneralMerchandise.UI.AttachedProperties"
-                    xmlns:c="clr-namespace:GeneralMerchandise.UI.Converter">
+                    xmlns:c="clr-namespace:GeneralMerchandise.UI.Converter"
+                    xmlns:command="clr-namespace:GeneralMerchandise.UI.Command">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
             <c:SecureStringHasTextBoolConverter x:Key="SecureStringConverter"/>
+            <c:HasTextConverter x:Key="TextBoxHasTextConverter"/>
+            <command:ClearTextCommand x:Key="ClearTextCommand"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -21,7 +24,9 @@
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Foreground" Value="{StaticResource DefaultTextBrush}"/>
         <Setter Property="Padding" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ExtraDarkGrayBrush}"/>
         <Setter Property="a:Hint.TextProperty" Value=""/>
+        <Setter Property="a:ClearableText.EnableClearTextProperty" Value="False"/>
         <Setter Property="SelectionBrush">
             <Setter.Value>
                 <SolidColorBrush Color="{Binding Source={x:Static p:Settings.Default}, Path=ThemeColor}"/>
@@ -34,13 +39,13 @@
                     <Border Name="Border"
                             Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="{StaticResource ExtraDarkGrayBrush}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" >
                         <Grid>
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
-                            <TextBlock Name="HintText"  
+                            <TextBlock Name="HintText"
                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                    Path=(a:Hint.TextProperty)}" 
+                                       Path=(a:Hint.TextProperty)}" 
                                        Visibility="Collapsed"
                                        IsHitTestVisible="False"
                                        FontSize="{TemplateBinding FontSize}" 
@@ -48,12 +53,35 @@
                                        FontFamily="{TemplateBinding FontFamily}"
                                        FontStyle="{TemplateBinding FontStyle}"
                                        Padding="{Binding ElementName=Border, Path=Padding}"/>
+                            <Button Name="ClearText"
+                                    Style="{StaticResource Hoverless}" Content="✕" 
+                                    Foreground="{TemplateBinding Foreground}"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Command="{StaticResource ClearTextCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}"
+                                    Visibility="Collapsed"
+                                    Margin="0 0 5 0"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
                             <Setter TargetName="HintText" Property="Visibility" Value="Visible"/>
                         </DataTrigger>
+                        
+                        <!--<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource TextBoxHasTextConverter}}" Value="True">
+                            <Setter TargetName="ClearText" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>-->
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource TextBoxHasTextConverter}}" Value="True"/>
+                                <Condition Binding="{Binding Path=(a:ClearableText.EnableClearTextProperty), RelativeSource={RelativeSource Self}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="ClearText" Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+
+                        
                         <Trigger Property="IsFocused" Value="true">
                             <Setter TargetName="Border" Property="BorderBrush">
                                 <Setter.Value>

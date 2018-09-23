@@ -31,7 +31,7 @@ namespace GeneralMerchandise.Data.Model
             };
         }
 
-        public static UserModel FromDB(int id, string imageFilename, string firstname, string middlename, string lastname, Gender gender, DateTime birthdate, string contactNumber, string email, string address)
+        public static UserModel Existing(int id, string imageFilename, string firstname, string middlename, string lastname, Gender gender, DateTime birthdate, string contactNumber, string email, string address)
         {
             return new UserModel
             {

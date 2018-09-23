@@ -12,7 +12,7 @@
     <Page.DataContext>
         <viewmodel:ProfileViewModel x:Name="VM"/>
     </Page.DataContext>
-    <Grid Background="White">
+    <Grid Background="{StaticResource DefaultBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GeneralMerchandise.UI.ViewModel;
 
 namespace GeneralMerchandise.UI.Pages
 {
     /// <summary>
-    /// Interaction logic for AdministratorHomePage.xaml
+    /// Interaction logic for UserProfileCompletion.xaml
     /// </summary>
-    public partial class AdministratorHomePage : BasePage
+    public partial class UserProfileCompletionPage : Page
     {
-        public AdministratorHomePage()
+        public UserProfileCompletionPage()
         {
             InitializeComponent();
-            Title = "Administrator";
-        }
-
-        public override ViewModel.ViewModel GetViewModel()
-        {
-            return VM;
         }
     }
 }

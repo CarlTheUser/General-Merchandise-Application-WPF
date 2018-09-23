@@ -13,7 +13,7 @@ namespace GeneralMerchandise.Data.Model
 
         public static TagModel New(string name) { return new TagModel(name); }
 
-        public static TagModel FromDB(int id, string name) { return new TagModel(id, name); }
+        public static TagModel Existing(int id, string name) { return new TagModel(id, name); }
 
         #endregion
 

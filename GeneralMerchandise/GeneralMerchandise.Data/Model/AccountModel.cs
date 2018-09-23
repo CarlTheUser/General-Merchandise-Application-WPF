@@ -26,7 +26,7 @@ namespace GeneralMerchandise.Data.Model
             };
         }
 
-        public static AccountModel FromDB(int identity, string username, string salt, string passwordhash, AccessType accessType, bool active)
+        public static AccountModel Existing(int identity, string username, string salt, string passwordhash, AccessType accessType, bool active)
         {
             return new AccountModel
             {
@@ -47,5 +47,6 @@ namespace GeneralMerchandise.Data.Model
         public SecuredPassword Password { get; private set; }
         public AccessType AccessType { get; set; }
         public bool IsActive { get; set; }
+        public DateTime Created { get; set; }
     }
 }

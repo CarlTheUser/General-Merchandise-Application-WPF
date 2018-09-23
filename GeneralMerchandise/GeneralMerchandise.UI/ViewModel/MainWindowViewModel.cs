@@ -133,6 +133,7 @@ namespace GeneralMerchandise.UI.ViewModel
         #endregion
 
         #region Event Handlers
+
         private void Instance_AccountLoggedIn(object sender, LoginHandle.AccountLoggedInEventArgs e)
         {
             AccessType accessType = e.AccountModel.AccessType;
@@ -149,6 +150,7 @@ namespace GeneralMerchandise.UI.ViewModel
         {
             ClearNavigationStack();
             DisplayLogin();
+            NotificationHub.GetInstance().ShowMessage("See you again.");
         }
 
         #endregion

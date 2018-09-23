@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI.Model
 {
-    internal abstract class PersistibleModel : BaseModel
+    public abstract class PersistibleModel : BaseModel
     {
 
         #region Events

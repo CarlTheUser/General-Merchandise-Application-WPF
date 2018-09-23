@@ -13,7 +13,7 @@
         <viewmodel:AdministratorHomeViewModel x:Name="VM"/>
     </Page.DataContext>
     
-    <Grid Background="{StaticResource LightBrush}">
+    <Grid Background="{StaticResource DefaultBackground}">
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -53,7 +53,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
                 while (reader.Read())
                 {
-                    tags.Add(TagModel.FromDB(
+                    tags.Add(TagModel.Existing(
                         reader.GetInt32(idColumn),
                         reader.GetString(nameColumn))
                         );

@@ -5,7 +5,8 @@
 
     <System:Double x:Key="WindowBarHeight">100</System:Double>
     <System:Double x:Key="SpaceSmall">8</System:Double>
+    <System:Double x:Key="SpaceMedium">15</System:Double>
 
     <Thickness x:Key="MarginSmall" Left="{StaticResource SpaceSmall}" Right="{StaticResource SpaceSmall}" Top="{StaticResource SpaceSmall}" Bottom="{StaticResource SpaceSmall}"/>
-
+    <Thickness x:Key="MarginMedium" Left="{StaticResource SpaceMedium}" Right="{StaticResource SpaceMedium}" Top="{StaticResource SpaceMedium}" Bottom="{StaticResource SpaceMedium}"/>
 </ResourceDictionary>

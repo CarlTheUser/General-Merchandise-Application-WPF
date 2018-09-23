@@ -28,6 +28,7 @@
             <TextBox Grid.Row="0" 
                      Name="UsernameField"
                      a:Hint.TextProperty="Username"
+                     a:ClearableText.EnableClearTextProperty="True"
                      Text="{Binding Username}"
                      Style="{StaticResource FlatTextBox}"
                      FontSize="{StaticResource FontSizeRegular}"

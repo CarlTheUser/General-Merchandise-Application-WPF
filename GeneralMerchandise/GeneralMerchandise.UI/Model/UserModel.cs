@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI.Model
 {
-    class UserModel : PersistibleModel
+    public class UserModel : PersistibleModel
     {
 
         #region Factory Methods
@@ -107,7 +107,7 @@ namespace GeneralMerchandise.UI.Model
             get => middlename;
             set
             {
-                firstname = value;
+                middlename = value;
                 OnPropertyChanged("Middlename");
             }
         }
@@ -119,7 +119,7 @@ namespace GeneralMerchandise.UI.Model
             get => lastname;
             set
             {
-                firstname = value;
+                lastname = value;
                 OnPropertyChanged("Lastname");
             }
         }

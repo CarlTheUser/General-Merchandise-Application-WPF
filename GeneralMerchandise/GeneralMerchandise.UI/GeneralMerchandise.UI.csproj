@@ -58,14 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AttachedProperties\ClearableText.cs" />
     <Compile Include="AttachedProperties\Hint.cs" />
+    <Compile Include="Command\ClearTextCommand.cs" />
     <Compile Include="Command\CloseWindowCommand.cs" />
     <Compile Include="Command\NavigateCommand.cs" />
     <Compile Include="Command\ParameterizedRelayCommand.cs" />
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="Converter\BoolToStringConverter.cs" />
     <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\HasTextConverter.cs" />
     <Compile Include="Converter\SecureStringHasTextBoolConverter.cs" />
     <Compile Include="Converter\StringToUriConverter.cs" />
+    <Compile Include="Converter\UserDisplayDataFullnameConverter.cs" />
     <Compile Include="IApplicationView.cs" />
     <Compile Include="IMainView.cs" />
     <Compile Include="INotifiable.cs" />
@@ -99,8 +104,14 @@
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AccountCreationPage.xaml.cs">
+      <DependentUpon>AccountCreationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ReportsAndAnalysesPage.xaml.cs">
       <DependentUpon>ReportsAndAnalysesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\UserProfileCompletionPage.xaml.cs">
+      <DependentUpon>UserProfileCompletionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UsersPage.xaml.cs">
       <DependentUpon>UsersPage.xaml</DependentUpon>
@@ -116,8 +127,10 @@
     <Compile Include="ViewModel\NothingViewModel.cs" />
     <Compile Include="ViewModel\ProductsViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\AccountCreationViewModel.cs" />
     <Compile Include="ViewModel\ReportsAndAnalysesViewModel.cs" />
     <Compile Include="ViewModel\UserDisplayViewModel.cs" />
+    <Compile Include="ViewModel\UserProfileCompletionViewModel.cs" />
     <Compile Include="ViewModel\UsersViewModel.cs" />
     <Compile Include="ViewModel\ViewModel.cs" />
     <Compile Include="WindowBlur.cs" />
@@ -157,7 +170,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AccountCreationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ReportsAndAnalysesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UserProfileCompletionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +215,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI.Model
 {
-    internal class AccountModel : PersistibleModel
+    public class AccountModel : PersistibleModel
     {
 
         #region Factory Methods

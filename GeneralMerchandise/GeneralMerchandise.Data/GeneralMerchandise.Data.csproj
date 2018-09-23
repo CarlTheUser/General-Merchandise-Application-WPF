@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="Client\Data\AccountData.cs" />
     <Compile Include="Client\Data\UserData.cs" />
+    <Compile Include="Client\Data\UserDisplayData.cs" />
     <Compile Include="Client\LoginOperation.cs" />
+    <Compile Include="Client\RegisterOperation.cs" />
     <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Login\LoginService.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Provider\MySql\MySQLUserPersistence.cs" />
     <Compile Include="Provider\MySql\ProductTaggingsQuery.cs" />
     <Compile Include="Provider\MySql\TagQuery.cs" />
+    <Compile Include="Provider\MySql\UserDisplayQuery.cs" />
     <Compile Include="Provider\MySql\UserQuery.cs" />
     <Compile Include="Provider\ProductPersistence.cs" />
     <Compile Include="Provider\SQLCaller.cs" />

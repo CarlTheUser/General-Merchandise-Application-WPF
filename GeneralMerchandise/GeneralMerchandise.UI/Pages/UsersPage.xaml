@@ -3,7 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:a="clr-namespace:GeneralMerchandise.UI.AttachedProperties"
       xmlns:local="clr-namespace:GeneralMerchandise.UI.Pages"
+      xmlns:c="clr-namespace:GeneralMerchandise.UI.Converter"        
                 xmlns:viewmodel="clr-namespace:GeneralMerchandise.UI.ViewModel"
                 mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -12,6 +14,151 @@
         <viewmodel:UsersViewModel x:Name="VM"/>
     </Page.DataContext>
     <Grid>
-        <TextBlock Text="Users" FontSize="{StaticResource FontSizeXLarge}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="0" 
+                    Background="{StaticResource DefaultBackground}">
+            <TextBlock FontSize="{StaticResource FontSizeXLarge}"
+                   Text="Users" />
+            <Border BorderThickness="0 0 0 1">
+                <Grid>
+                    <StackPanel Orientation="Vertical" Width="300">
+                        <TextBox Style="{StaticResource FlatTextBox}"
+                                 Width="270"
+                                 Margin="8"
+                                 a:Hint.TextProperty="Search"
+                                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                            <StackPanel.Resources>
+                                <Style TargetType="RadioButton" BasedOn="{StaticResource FlatToggle}">
+                                    <Setter Property="Padding"
+                                            Value="15 10"/>
+                                    <Setter Property="BorderThickness"
+                                            Value="0 0 0 3"/>
+
+                                </Style>
+                            </StackPanel.Resources>
+                            <RadioButton GroupName="Filter"
+                                         Content="All"
+                                         IsChecked="True" 
+                                         Command="{Binding FilterActiveCommand}"
+                                         CommandParameter="{x:Static viewmodel:UsersViewModel+FilterActiveProperty.None }"/>
+                            <RadioButton GroupName="Filter" 
+                                         Content="Active"
+                                         Command="{Binding FilterActiveCommand}"
+                                         CommandParameter="{x:Static viewmodel:UsersViewModel+FilterActiveProperty.Active }"/>
+                            <RadioButton GroupName="Filter" 
+                                         Content="Deactived"
+                                         Command="{Binding FilterActiveCommand}"
+                                         CommandParameter="{x:Static viewmodel:UsersViewModel+FilterActiveProperty.Deactivated }"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Right"
+                    Content="New"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Command="{Binding NewUserCommand}"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+
+
+        <ListView Grid.Row="2" 
+                  Background="Transparent"
+                  ItemsSource="{Binding UsersDisplay}" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  BorderThickness="0"
+                  Padding="20">
+            <ListView.Resources>
+                <c:UserDisplayDataFullnameConverter x:Key="FullnameConverter"/>
+                <c:BoolToValueConverter TrueValue="Active" FalseValue="Deactivated" x:Key="BoolToStringConverter"/>
+            </ListView.Resources>
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource PlainButton}"
+                            Background="White"
+                            DataContext="{Binding}"
+                            Width="250"
+                            Height="150"
+                            Padding="5"
+                            BorderThickness="2"
+                            Margin="{StaticResource MarginSmall}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch"
+                            Command="{Binding ElementName=VM, Path=UINavigationCommand}"
+                            CommandParameter="{Binding}">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <TextBlock Text="NAME"/>
+                            </ToolTip>
+                        </Button.ToolTip>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Grid.Column="0" 
+                                     Margin="5"
+                                     VerticalAlignment="Top"
+                                     Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" 
+                                     Fill="{StaticResource LightGrayBrush}"/>
+                            <Ellipse Grid.Column="0"
+                                     Margin="5"
+                                     VerticalAlignment="Top"
+                                     x:Name="userPicturePopup"
+                                     Height="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" 
+                                     Width="Auto">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{StaticResource UserIconMedium}"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical">
+                                <TextBlock Text="{Binding Converter={StaticResource FullnameConverter}}" 
+                                           TextWrapping="WrapWithOverflow"
+                                           Margin="10 5"/>
+                                <TextBlock Margin="10 5" 
+                                           Text="{Binding Created, StringFormat=Created {0:d}}"/>
+                                <TextBlock Margin="10 5" 
+                                           Text="{Binding IsActive, Converter={StaticResource BoolToStringConverter}, StringFormat=Account Is {0}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            Background="{TemplateBinding Background}">
+                                    <ContentPresenter />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+        </ListView>
     </Grid>
 </local:BasePage>

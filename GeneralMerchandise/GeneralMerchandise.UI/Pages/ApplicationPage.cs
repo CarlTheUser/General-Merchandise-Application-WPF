@@ -11,7 +11,8 @@
         Products,
         Reports,
         Store,
-        AdministratorSettings
+        AdministratorSettings,
+        Register
         
     }
 }

@@ -13,9 +13,40 @@ namespace GeneralMerchandise.Data.Client
     {
         public UserOperation() { } 
 
+        public void Save(UserData user)
+        {
+            if (user == null) throw new ArgumentNullException("user");
+            UserModel userModel = UserModel.Existing(
+                user.Id,
+                user.ImageFileLocation,
+                user.Firstname,
+                user.Middlename,
+                user.Lastname,
+                user.Gender,
+                user.BirthDate,
+                user.ContactNumber,
+                user.Email,
+                user.Address);
+            MySQLUserPersistence userPersistence = new MySQLUserPersistence();
+            userPersistence.Save(userModel);
+        }
+
         public void Edit(UserData user)
         {
-
+            if (user == null) throw new ArgumentNullException("user");
+            UserModel userModel = UserModel.Existing(
+                user.Id,
+                user.ImageFileLocation,
+                user.Firstname,
+                user.Middlename,
+                user.Lastname,
+                user.Gender,
+                user.BirthDate,
+                user.ContactNumber,
+                user.Email,
+                user.Address);
+            MySQLUserPersistence userPersistence = new MySQLUserPersistence();
+            userPersistence.Edit(userModel);
         }
 
         public IEnumerable<UserData> GetUsers()
@@ -49,23 +80,27 @@ namespace GeneralMerchandise.Data.Client
             UserQuery query = new UserQuery();
             query.Filter = new UserQuery.IdFilter(account.Id);
 
-            UserModel user = query.Execute().ToList()[0];
+            var result = query.Execute().ToList();
 
-            if (user == null) return null;
-
-            return new UserData()
+            if (result.Count > 0)
             {
-                Id = user.Identity,
-                ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
-                Firstname = user.Firstname,
-                Middlename = user.Middlename,
-                Lastname = user.Lastname,
-                Gender = user.Gender,
-                BirthDate = user.BirthDate,
-                ContactNumber = user.ContactNumber,
-                Email = user.Email,
-                Address = user.Address
-            };
+                UserModel user = result[0];
+                return new UserData()
+                {
+                    Id = user.Identity,
+                    ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
+                    Firstname = user.Firstname,
+                    Middlename = user.Middlename,
+                    Lastname = user.Lastname,
+                    Gender = user.Gender,
+                    BirthDate = user.BirthDate,
+                    ContactNumber = user.ContactNumber,
+                    Email = user.Email,
+                    Address = user.Address
+                };
+            }
+
+            else return null;            
         }
 
 

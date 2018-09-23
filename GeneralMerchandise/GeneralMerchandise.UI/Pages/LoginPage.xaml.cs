@@ -31,6 +31,11 @@ namespace GeneralMerchandise.UI.Pages
 
         public string Password => PasswordField.Password;
 
+        public void ClearPassword()
+        {
+            PasswordField.Password = string.Empty;
+        }
+
         public override ViewModel.ViewModel GetViewModel()
         {
             return VM;

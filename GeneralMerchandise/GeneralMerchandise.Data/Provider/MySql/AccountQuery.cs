@@ -63,7 +63,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 while(reader.Read())
                 {
                     accounts.Add(
-                        AccountModel.FromDB(
+                        AccountModel.Existing(
                             reader.GetInt32(idColumn),
                             reader.GetString(usernameColumn),
                             reader.GetString(saltColumn),

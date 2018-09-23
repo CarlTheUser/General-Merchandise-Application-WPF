@@ -11,5 +11,6 @@ namespace GeneralMerchandise.UI
     {
         SecureString SecurePassword { get; }
         string Password { get; }
+        void ClearPassword();
     }
 }
