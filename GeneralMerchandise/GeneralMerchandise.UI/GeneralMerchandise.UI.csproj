@@ -36,6 +36,7 @@
     <ApplicationIcon>General Merchandise.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -70,10 +71,13 @@
     <Compile Include="Converter\HasTextConverter.cs" />
     <Compile Include="Converter\SecureStringHasTextBoolConverter.cs" />
     <Compile Include="Converter\StringToUriConverter.cs" />
+    <Compile Include="Converter\ThicknessAdditionConverter.cs" />
     <Compile Include="Converter\UserDisplayDataFullnameConverter.cs" />
+    <Compile Include="DataExtension.cs" />
     <Compile Include="IApplicationView.cs" />
+    <Compile Include="IConfirmPassword.cs" />
     <Compile Include="IMainView.cs" />
-    <Compile Include="INotifiable.cs" />
+    <Compile Include="INotifyUser.cs" />
     <Compile Include="IPasswordContainer.cs" />
     <Compile Include="LoginHandle.cs" />
     <Compile Include="Model\AccountModel.cs" />
@@ -116,10 +120,19 @@
     <Compile Include="Pages\UsersPage.xaml.cs">
       <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfileSetupWindow.xaml.cs">
+      <DependentUpon>ProfileSetupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TempWindow.xaml.cs">
+      <DependentUpon>TempWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIModel\HomePageOption.cs" />
     <Compile Include="UserDisplay.xaml.cs">
       <DependentUpon>UserDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewLauncher\IProfileSetupViewLauncher.cs" />
+    <Compile Include="ViewLauncher\ProfileSetupWindowLauncher.cs" />
+    <Compile Include="ViewLauncher\ViewLauncher.cs" />
     <Compile Include="ViewModel\AdministratorHomeViewModel.cs" />
     <Compile Include="ViewModel\AdministratorSettingsViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -186,6 +199,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ProfileSetupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Style\Border.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +212,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\Color.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\DatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -223,6 +248,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Style\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TempWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

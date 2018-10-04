@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client\AccountOperation.cs" />
     <Compile Include="Client\Data\AccountData.cs" />
     <Compile Include="Client\Data\UserData.cs" />
     <Compile Include="Client\Data\UserDisplayData.cs" />
+    <Compile Include="Client\IFallibleOperation.cs" />
     <Compile Include="Client\LoginOperation.cs" />
-    <Compile Include="Client\RegisterOperation.cs" />
     <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Login\LoginService.cs" />
@@ -82,6 +83,9 @@
     <Compile Include="Provider\Query.cs" />
     <Compile Include="Provider\SqlQuery.cs" />
     <Compile Include="Provider\UserPersistence.cs" />
+    <Compile Include="Validation\UserValidator.cs" />
+    <Compile Include="Validation\ValidationCriterion.cs" />
+    <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneralMerchandise.CommonTypes\GeneralMerchandise.Common.csproj">

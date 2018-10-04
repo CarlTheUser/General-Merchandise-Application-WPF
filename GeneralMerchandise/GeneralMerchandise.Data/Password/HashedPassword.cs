@@ -22,7 +22,7 @@ namespace GeneralMerchandise.Data.Password
         public bool VerifyPassword(string input, SecuredPassword password)
         {
             return ConvertToString(
-                GetHash(password.Salt.GetStringFinalize(),input)
+                GetHash(password.Salt.GetStringFinalize(), input)
                 ).Equals(password.HashedPassword.GetStringFinalize());
         }
 

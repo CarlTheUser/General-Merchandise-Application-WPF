@@ -1,4 +1,5 @@
-﻿using GeneralMerchandise.Data.Client;
+﻿using GeneralMerchandise.Common.Type;
+using GeneralMerchandise.Data.Client;
 using GeneralMerchandise.Data.Client.Data;
 using GeneralMerchandise.UI.Command;
 using GeneralMerchandise.UI.Model;
@@ -13,13 +14,18 @@ namespace GeneralMerchandise.UI.ViewModel
 {
     public class AccountCreationViewModel : ViewModel
     {
-        public AccountModel Account { get; } = AccountModel.NewInstance();
+        public static int PASSWORD_CONTAINER_PARAMETER = 1;
+        public static int CONFIRM_PASSWORD_PARAMETER = 2;
 
-        public UserModel User { get; } = UserModel.NewInstance();
+        public AccountModel Account { get; } = AccountModel.NewInstance();
 
         public ICommand RegisterCommand { get; private set; }
 
-        private readonly RegisterOperation registerOperation = new RegisterOperation();
+        public AccessType[] AccessTypes { get { return new AccessType[] { AccessType.Administrator, AccessType.Cashier }; } }
+
+        private IPasswordContainer PasswordContainer;
+
+        private IConfirmPassword ConfirmPassword;
 
         public AccountCreationViewModel()
         {
@@ -28,40 +34,51 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private void Register()
         {
-            AccountData account = new AccountData
-            {
-                Username = Account.Username,
-                AccessType = Account.AccessType,
-                IsActive = Account.IsActive
-            };
 
-            UserData user = new UserData
+            if (ConfirmPassword.ArePasswordsMatch)
             {
-                ImageFileLocation = User.ImageFileLocation,
-                Firstname = User.Firstname,
-                Middlename = User.Middlename,
-                Lastname = User.Lastname,
-                Gender = User.Gender,
-                BirthDate = User.BirthDate,
-                ContactNumber = User.ContactNumber,
-                Email = User.Email,
-                Address = User.Address
-            };
+                if (PasswordContainer.HasPassword)
+                {
+                    try
+                    {
+                        //AccountOperation accountOperation = new AccountOperation();
 
-            try
-            {
-                registerOperation.Register(account, user);
-                App.Current.MainView.UserNavigation.NavigateBack();
-                NotificationHub.GetInstance().ShowMessage("Registered a new user");
+                        AccountData account = new AccountData
+                        {
+                            Username = Account.Username,
+                            AccessType = Account.AccessType,
+                            IsActive = Account.IsActive = true
+                        };
+
+                        //accountOperation.Save(account, PasswordContainer.SecurePassword);
+
+                        App.Current.MainView.UserNavigation.NavigateBack();
+                        NotificationHub.GetInstance().ShowMessage("Registered a new user");
+                    }
+                    catch (Exception e)
+                    {
+                        NotificationHub.GetInstance().ShowMessage(e.Message);
+                    }
+                }
+                else NotificationHub.GetInstance().ShowMessage("No password found.");
             }
-            catch (Exception e)
-            {
-                NotificationHub.GetInstance().ShowMessage(e.Message);
-            }
+            else NotificationHub.GetInstance().ShowMessage("Passwords do not match.");
+            
             
         }
 
-
+        protected override void OnParameterSet(IDictionary<int, object> parameters)
+        {
+            if (parameters.ContainsKey(PASSWORD_CONTAINER_PARAMETER))
+            {
+                PasswordContainer = (IPasswordContainer)parameters[PASSWORD_CONTAINER_PARAMETER];
+            }
+            if (parameters.ContainsKey(CONFIRM_PASSWORD_PARAMETER))
+            {
+                ConfirmPassword = (IConfirmPassword)parameters[CONFIRM_PASSWORD_PARAMETER];
+            }
+            base.OnParameterSet(parameters);
+        }
 
     }
 }

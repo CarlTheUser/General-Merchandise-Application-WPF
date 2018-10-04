@@ -43,6 +43,8 @@ namespace GeneralMerchandise.UI.ViewModel
             }
         }
         
+        private bool CurrentPageInBackStack { get; set; }
+
         public bool HasBackStack => navigationStack.Count > 1;
 
         public bool HomeNavigationVisible
@@ -72,7 +74,7 @@ namespace GeneralMerchandise.UI.ViewModel
                 {
                     BasePage page = CreatePage(navigationTarget);
 
-                    if (navigationItem.AddToNavigationStack) navigationStack.Push(navigationItem);
+                    if (CurrentPageInBackStack = navigationItem.AddToNavigationStack) navigationStack.Push(navigationItem);
                     if (navigationItem.HasParameters) page.GetViewModel().Parameters = navigationItem.Parameters;
                     ApplicationPage = navigationTarget;
                     CurrentPage = page;
@@ -89,12 +91,14 @@ namespace GeneralMerchandise.UI.ViewModel
         {
             if(navigationStack.Count > 1)
             {
-                NavigationItem Current = navigationStack.Pop();
+
+                NavigationItem Current = null;
+                if(CurrentPageInBackStack) Current = navigationStack.Pop();
                 NavigationItem Last = navigationStack.Pop();
                 if(!Navigate(Last))
                 {
                     navigationStack.Push(Last);
-                    navigationStack.Push(Current);
+                    if (CurrentPageInBackStack) navigationStack.Push(Current);
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace GeneralMerchandise.UI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IApplicationView, INotifiable
+    public partial class MainWindow : Window, IApplicationView, INotifyUser
     {
         private readonly Queue<string> messageQueue = new Queue<string>();
 

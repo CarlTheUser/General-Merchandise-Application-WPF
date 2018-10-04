@@ -31,6 +31,8 @@ namespace GeneralMerchandise.UI.Pages
 
         public string Password => PasswordField.Password;
 
+        public bool HasPassword => PasswordField.Password.Trim().Length > 0;
+
         public void ClearPassword()
         {
             PasswordField.Password = string.Empty;

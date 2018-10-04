@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.Data.Client.Data
 {
+    //DTO class
     public sealed class AccountData
     {
         public int Id { get; set; }

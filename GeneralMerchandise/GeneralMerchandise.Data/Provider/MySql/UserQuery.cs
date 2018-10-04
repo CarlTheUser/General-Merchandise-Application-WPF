@@ -23,7 +23,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
         private static readonly string FIRSTNAME_COLUMN = "Firstname";
 
-        private static readonly string MIDDLENAME_COLUMN = "MiIddlename";
+        private static readonly string MIDDLENAME_COLUMN = "Middlename";
 
         private static readonly string LASTNAME_COLUMN = "Lastname";
 

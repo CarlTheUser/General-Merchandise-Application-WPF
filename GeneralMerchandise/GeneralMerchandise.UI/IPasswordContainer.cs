@@ -10,7 +10,11 @@ namespace GeneralMerchandise.UI
     interface IPasswordContainer
     {
         SecureString SecurePassword { get; }
+
         string Password { get; }
+
         void ClearPassword();
+
+        bool HasPassword { get; }
     }
 }

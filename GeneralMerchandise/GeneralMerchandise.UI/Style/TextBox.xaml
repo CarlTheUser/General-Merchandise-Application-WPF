@@ -54,7 +54,8 @@
                                        FontStyle="{TemplateBinding FontStyle}"
                                        Padding="{Binding ElementName=Border, Path=Padding}"/>
                             <Button Name="ClearText"
-                                    Style="{StaticResource Hoverless}" Content="✕" 
+                                    Style="{StaticResource Hoverless}" 
+                                    Content="✕" 
                                     Foreground="{TemplateBinding Foreground}"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
@@ -76,14 +77,15 @@
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource TextBoxHasTextConverter}}" Value="True"/>
-                                <Condition Binding="{Binding Path=(a:ClearableText.EnableClearTextProperty), RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(a:ClearableText.EnableClearTextProperty)}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="ClearText" Property="Visibility" Value="Visible"/>
                         </MultiDataTrigger>
 
                         
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="Border" Property="BorderBrush">
+                            <Setter Property="BorderBrush">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{Binding Source={x:Static p:Settings.Default}, Path=ThemeColor}"/>
                                 </Setter.Value>
@@ -91,7 +93,7 @@
                             <Setter Property="Foreground" Value="{StaticResource BlackBrush}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="Border" Property="BorderBrush">
+                            <Setter Property="BorderBrush">
                                 <Setter.Value>
                                     <SolidColorBrush Color="{Binding Source={x:Static p:Settings.Default}, Path=ThemeColor}"/>
                                 </Setter.Value>
@@ -134,9 +136,9 @@
                             BorderThickness="{TemplateBinding BorderThickness}" >
                         <Grid>
                             <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
-                            <TextBlock Name="HintText"  
+                            <TextBlock Name="HintText" 
                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                    Path=(a:Hint.TextProperty)}" 
+                                Path=(a:Hint.TextProperty)}" 
                                        Visibility="Collapsed"
                                        IsHitTestVisible="False"
                                        FontSize="{TemplateBinding FontSize}" 

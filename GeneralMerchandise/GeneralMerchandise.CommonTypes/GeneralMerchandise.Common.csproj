@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StringOperation.cs" />
     <Compile Include="Type\AccessType.cs" />
     <Compile Include="Type\Gender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -114,17 +114,14 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private void SearchUser(string name)
         {
-            if(name.Trim().Length == 0)
+            if (name == null) return;
+            name = name.Trim().ToLower();
+            if (name.Length == 0)
             {
                 UsersDisplay = new ObservableCollection<UserDisplayData>(Users);
             } else
             {
-                name = name.ToLower();
-                UsersDisplay = new ObservableCollection<UserDisplayData>(UsersDisplay.Where(x =>
-                {
-                    if(x.Middlename != null && x.Middlename.Trim().Length > 0) return x.Firstname.ToLower().Contains(name) || x.Middlename.ToLower().Contains(name) || x.Lastname.ToLower().Contains(name);
-                    else return x.Firstname.ToLower().Contains(name) || x.Lastname.ToLower().Contains(name);
-                }));
+                UsersDisplay = new ObservableCollection<UserDisplayData>(UsersDisplay.Where(x => x.Fullname().ToLower().Contains(name)));
             }
             OnPropertyChanged("UsersDisplay");
         }

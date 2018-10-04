@@ -21,8 +21,6 @@ namespace GeneralMerchandise.Data.Client
         public LoginOperation()
         {
             loginService = new SQLLoginService();
-            loginService.LoginSucceed += LoginService_LoginSucceed;
-            loginService.LoginFailed += LoginService_LoginFailed;
         }
         
         public void Login(string accountIdentifier, string inputPassword)
@@ -38,25 +36,23 @@ namespace GeneralMerchandise.Data.Client
                 OnLoginFailed("Input password is blank");
                 return;
             }
-            loginService.Login(accountIdentifier, inputPassword);
-
-        }
-
-        private void LoginService_LoginSucceed(object sender, LoginService.LoginSuccessfulEventArgs e)
-        {
-            AccountModel account = e.Account;
-            OnLoginSucceed(new AccountData
+            LoginService.ILoginResult result = loginService.Login(accountIdentifier, inputPassword);
+            if(result.IsSuccessful)
             {
-                Id = account.Identity,
-                Username = account.Username,
-                AccessType = account.AccessType,
-                IsActive = account.IsActive
-            });
-        }
+                AccountModel account = result.Account;
+                OnLoginSucceed(new AccountData
+                {
+                    Id = account.Identity,
+                    Username = account.Username,
+                    AccessType = account.AccessType,
+                    IsActive = account.IsActive
+                });
+            }
+            else
+            {
+                OnLoginFailed(result.Message);
+            }
 
-        private void LoginService_LoginFailed(object sender, LoginService.LoginFailureEventArgs e)
-        {
-            OnLoginFailed(e.Message);
         }
 
         private void OnLoginSucceed(AccountData account)

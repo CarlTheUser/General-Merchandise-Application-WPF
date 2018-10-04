@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.UI
 {
-    interface INotifiable
+    interface INotifyUser
     {
         void ShowMessage(string message);
 

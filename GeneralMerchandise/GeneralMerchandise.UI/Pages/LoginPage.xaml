@@ -10,6 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Login"
       Initialized="BasePage_Initialized"
+      IsEnabled="{Binding VM.Enabled}"
       FocusManager.FocusedElement="{Binding ElementName=UsernameField}">
     <Page.DataContext>
         <viewmodel:LoginViewModel x:Name="VM"/>

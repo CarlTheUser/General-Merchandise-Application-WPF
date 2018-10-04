@@ -9,7 +9,7 @@ namespace GeneralMerchandise.UI
 {
     sealed class NotificationHub
     {
-        public INotifiable CurrentNotificationHandler { get; set; }
+        public INotifyUser CurrentNotificationHandler { get; set; }
 
         private static NotificationHub instance;
 

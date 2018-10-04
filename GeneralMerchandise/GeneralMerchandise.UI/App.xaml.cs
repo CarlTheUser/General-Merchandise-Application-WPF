@@ -44,6 +44,8 @@ namespace GeneralMerchandise.UI
             MainWindow window = new MainWindow();
             MainView = (IMainView)window.DataContext;
             window.Show();
+            //new TempWindow().Show();
+
         }
 
     }

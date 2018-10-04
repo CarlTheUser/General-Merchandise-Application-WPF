@@ -10,44 +10,31 @@ namespace GeneralMerchandise.Data.Login
     internal abstract class LoginService
     {
 
-        public event EventHandler<LoginSuccessfulEventArgs> LoginSucceed;
+        public abstract ILoginResult Login(string accountIdentifier, string password);
 
-        public event EventHandler<LoginFailureEventArgs> LoginFailed;
-
-        public abstract void Login(string accountIdentifier, string password);
-
-        protected virtual void OnLoginSucceed(AccountModel account)
+        //Creates an interface so I can hide the constructor of implementing protected class
+        //while interface is publicly viewable but couldnt be instantiated
+        public interface ILoginResult
         {
-            if (LoginSucceed != null) LoginSucceed.Invoke(this, new LoginSuccessfulEventArgs(account));
-            else
-            {
-                //log no listeners
-            }
+            bool IsSuccessful { get; }
+            AccountModel Account { get; }
+            string Message { get; }
         }
 
-        protected virtual void OnLoginFailed(string message)
+        protected class LoginResult : ILoginResult
         {
-            if (LoginFailed != null) LoginFailed.Invoke(this, new LoginFailureEventArgs(message));
-            else
-            {
-                //log no listeners
-            }
-        }
+            public bool IsSuccessful { get; private set; } = false;
 
-        public class LoginSuccessfulEventArgs : EventArgs
-        {
-            public AccountModel Account { get; }
+            public AccountModel Account { get; private set; }
 
-            public LoginSuccessfulEventArgs(AccountModel account)
-            {
-                Account = account;
-            }
-        }
-
-        public class LoginFailureEventArgs : EventArgs
-        {
             public string Message { get; private set; }
-            public LoginFailureEventArgs(string message)
+
+            public LoginResult(AccountModel account)
+            {
+                IsSuccessful = (Account = account) != null;
+            }
+
+            public LoginResult(string message)
             {
                 Message = message;
             }

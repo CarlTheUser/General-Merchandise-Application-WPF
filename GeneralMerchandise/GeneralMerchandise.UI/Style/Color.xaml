@@ -24,4 +24,6 @@
     <SolidColorBrush x:Key="ExtraDarkGrayBrush" Color="{StaticResource ExtraDarkGray}"/>
 
     <SolidColorBrush x:Key="DefaultBackground" Color="White"/>
+
+    <SolidColorBrush x:Key="LightText" Color="White"/>
 </ResourceDictionary>

@@ -1,6 +1,7 @@
 ﻿using GeneralMerchandise.Data.Client.Data;
 using GeneralMerchandise.Data.Model;
 using GeneralMerchandise.Data.Provider.MySql;
+using GeneralMerchandise.Data.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace GeneralMerchandise.Data.Client
 {
-    public sealed class UserOperation
+    public sealed class UserOperation : IFallibleOperation
     {
-        public UserOperation() { } 
+        public UserOperation() { }
+
+        public event EventHandler<FallibleOperationEventArgs> ErrorOccured;
 
         public void Save(UserData user)
         {
@@ -27,8 +30,18 @@ namespace GeneralMerchandise.Data.Client
                 user.ContactNumber,
                 user.Email,
                 user.Address);
-            MySQLUserPersistence userPersistence = new MySQLUserPersistence();
-            userPersistence.Save(userModel);
+
+            UserValidator validator = new UserValidator(userModel);
+
+            validator.Validate();
+
+            if (validator.IsValid)
+            {
+                MySQLUserPersistence userPersistence = new MySQLUserPersistence();
+                userPersistence.Save(userModel);
+            }
+            else OnErrorOccured(validator.BrokenRules[0]);
+            
         }
 
         public void Edit(UserData user)
@@ -45,8 +58,17 @@ namespace GeneralMerchandise.Data.Client
                 user.ContactNumber,
                 user.Email,
                 user.Address);
-            MySQLUserPersistence userPersistence = new MySQLUserPersistence();
-            userPersistence.Edit(userModel);
+
+            UserValidator validator = new UserValidator(userModel);
+
+            validator.Validate();
+
+            if (validator.IsValid)
+            {
+                MySQLUserPersistence userPersistence = new MySQLUserPersistence();
+                userPersistence.Edit(userModel);
+            }
+            else OnErrorOccured(validator.BrokenRules[0]);
         }
 
         public IEnumerable<UserData> GetUsers()
@@ -59,7 +81,7 @@ namespace GeneralMerchandise.Data.Client
                    select new UserData()
                    {
                        Id = user.Identity,
-                       ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
+                       ImageFileLocation = $@"{Configuration.Instance.UserImageDirectoryPath}\{user.ImageFilename}",
                        Firstname = user.Firstname,
                        Middlename = user.Middlename,
                        Lastname = user.Lastname,
@@ -88,7 +110,7 @@ namespace GeneralMerchandise.Data.Client
                 return new UserData()
                 {
                     Id = user.Identity,
-                    ImageFileLocation = $"{Configuration.Instance.UserImageDirectoryPath}\\{user.ImageFilename}",
+                    ImageFileLocation = $@"{Configuration.Instance.UserImageDirectoryPath}\{user.ImageFilename}",
                     Firstname = user.Firstname,
                     Middlename = user.Middlename,
                     Lastname = user.Lastname,
@@ -103,6 +125,10 @@ namespace GeneralMerchandise.Data.Client
             else return null;            
         }
 
+        void OnErrorOccured(string message)
+        {
+            ErrorOccured?.Invoke(this, new FallibleOperationEventArgs(message));
+        }
 
     }
 

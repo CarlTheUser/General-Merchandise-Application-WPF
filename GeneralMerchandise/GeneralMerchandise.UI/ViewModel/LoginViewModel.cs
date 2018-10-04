@@ -3,6 +3,7 @@ using GeneralMerchandise.Data.Client;
 using GeneralMerchandise.Data.Client.Data;
 using GeneralMerchandise.UI.Command;
 using GeneralMerchandise.UI.Model;
+using GeneralMerchandise.UI.ViewLauncher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,17 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private readonly LoginOperation LoginOperation;
 
+        private bool enabled = true;
+        public bool Enabled
+        {
+            get => enabled;
+            set
+            {
+                enabled = value;
+                OnPropertyChanged("Enabled");
+            }
+        }
+
         public LoginViewModel()
         {
             LoginOperation = new LoginOperation();
@@ -61,27 +73,45 @@ namespace GeneralMerchandise.UI.ViewModel
 
         private void Login()
         {
-            LoginOperation.Login(username, PasswordContainer.Password);
+            if (PasswordContainer.HasPassword) LoginOperation.Login(username, PasswordContainer.Password);
+            else NotificationHub.GetInstance().ShowMessage("Type your password.");
         }
 
         private bool CanLogin()
         {
             bool hasUsername = Username.Length > 0;
-            bool hasPassword = PasswordContainer != null ? PasswordContainer.Password.Length > 0 : false;
-            return hasUsername && hasPassword;
+            return hasUsername && (PasswordContainer != null && PasswordContainer.HasPassword);
         }
 
         private void LoginOperation_LoginSucceed(object sender, LoginOperation.LoginSuccessfulEventArgs e)
         {
             AccountData account = e.Account;
 
-            LoginHandle.Instance.LoginAccount(
+            UserOperation userOperation = new UserOperation();
+
+            UserData user = userOperation.GetFromAccount(account);
+
+            if(user != null)
+            {
+                LoginHandle.Instance.LoginAccount(
                 AccountModel.FromPersistentStorage(
-                    account.Id, 
-                    account.Username, 
-                    account.AccessType, 
+                    account.Id,
+                    account.Username,
+                    account.AccessType,
                     account.IsActive));
-            NotificationHub.GetInstance().ShowMessage("Account logged in");
+                NotificationHub.GetInstance().ShowMessage("Account logged in");
+            }
+            else
+            {
+                Enabled = false;
+                IProfileSetupViewLauncher profileSetupViewLauncher = new ProfileSetupWindowLauncher();
+                profileSetupViewLauncher.Launch(new Dictionary<int, object>()
+                {
+                    { UserProfileCompletionViewModel.USER_ID_PARAMETER, account.Id }
+                }); 
+            }
+
+            
         }
 
         private void LoginOperation_LoginFailed(object sender, LoginOperation.LoginFailureEventArgs e)

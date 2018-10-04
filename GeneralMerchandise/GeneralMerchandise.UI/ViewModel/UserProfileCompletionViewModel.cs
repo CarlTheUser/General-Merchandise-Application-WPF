@@ -1,10 +1,12 @@
-﻿using GeneralMerchandise.Data.Client;
+﻿using GeneralMerchandise.Common.Type;
+using GeneralMerchandise.Data.Client;
 using GeneralMerchandise.UI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace GeneralMerchandise.UI.ViewModel
 {
@@ -14,11 +16,14 @@ namespace GeneralMerchandise.UI.ViewModel
 
         public UserModel User { get; private set; } = UserModel.NewInstance();
 
-        private readonly UserOperation userOperation = new UserOperation();
+        public ICommand CompleteProfileCommand { get; private set; }
+
+        public IEnumerable<Gender> GenderOptions { get; private set; }
+
 
         public UserProfileCompletionViewModel()
         {
-
+            GenderOptions = Enum.GetValues(typeof(Gender)).Cast<Gender>();
         }
 
         protected override void OnParameterSet(IDictionary<int, object> parameters)
@@ -28,6 +33,13 @@ namespace GeneralMerchandise.UI.ViewModel
                 User.Id = (int)parameters[USER_ID_PARAMETER];
             }
             base.OnParameterSet(parameters);
+        }
+
+        private void CompleteUserProfile()
+        {
+            UserOperation userOperation = new UserOperation();
+
+
         }
 
 
