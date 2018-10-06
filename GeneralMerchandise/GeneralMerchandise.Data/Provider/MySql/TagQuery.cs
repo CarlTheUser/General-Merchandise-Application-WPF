@@ -63,40 +63,24 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             SqlFilterCriterion criterion = (SqlFilterCriterion)Filter;
 
-            List<DbParameter> parameters = new List<DbParameter>();
+            bool usesParameter = criterion.UsesParameter;
 
-            bool hasParameter = false;
+            DbParameter[] parameters = null;
 
             if (criterion != null)
             {
-                query += string.Format("WHERE {0} ", criterion.Evaluate());
+                query += $"WHERE {criterion.Evaluate()} ";
 
-                if (criterion.UsesParameter)
-                {
-                    parameters.AddRange(criterion.GetParameters());
-                    hasParameter = true;
-                }
+                parameters = criterion.GetParameters();
 
-                while (criterion.HasNextCriteria)
-                {
-                    criterion = criterion.NextCriteria;
-
-                    query += criterion.Evaluate() + " ";
-
-                    if (criterion.UsesParameter)
-                    {
-                        parameters.AddRange(criterion.GetParameters());
-                        hasParameter = true;
-                    }
-                }
             }
-            
+
             if (Ordering != null) query += string.Format("ORDER BY {0} ", Ordering.Evaluate());
 
             MySQLProvider provider = new MySQLProvider(DBConfiguration.ConnectionString);
             SQLCaller caller = new SQLCaller(provider);
 
-            DbCommand command = hasParameter ? provider.CreateCommand(query, parameters.ToArray()) : provider.CreateCommand(query);
+            DbCommand command = criterion.UsesParameter ? provider.CreateCommand(query, parameters) : provider.CreateCommand(query);
 
             tags = caller.Get(MapTags, command);
 
@@ -117,7 +101,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { };
             }
 
-            protected override string GetSQLClause()
+            protected internal override string GetSQLClause()
             {
                 return $"{ID_COLUMN} = {Id} ";
             }
@@ -136,7 +120,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter($"@{NAME_COLUMN}", Name) };
             }
 
-            protected override string GetSQLClause()
+            protected internal override string GetSQLClause()
             {
                 return $"{NAME_COLUMN} = @{NAME_COLUMN} ";
             }

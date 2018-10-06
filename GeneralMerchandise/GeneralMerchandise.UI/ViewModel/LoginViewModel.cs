@@ -56,6 +56,8 @@ namespace GeneralMerchandise.UI.ViewModel
             LoginOperation.LoginFailed += LoginOperation_LoginFailed;
 
             LoginCommand = new RelayCommand(Login, CanLogin);
+
+            //new AccountOperation().foo();
         }
         
         protected override void OnParameterSet(IDictionary<int, object> parameters)

@@ -37,13 +37,13 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
         public static SqlOrderCriterion OrderByIdDesc() { return new SqlOrderCriterion(ID_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
 
-        public static SqlOrderCriterion OrderByUsernameAsc() { return new SqlQuery<AccountModel>.SqlOrderCriterion(USERNAME_COLUMN); }
+        public static SqlOrderCriterion OrderByUsernameAsc() { return new SqlOrderCriterion(USERNAME_COLUMN); }
 
-        public static SqlOrderCriterion OrderByUsernameDesc() { return new SqlQuery<AccountModel>.SqlOrderCriterion(USERNAME_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
+        public static SqlOrderCriterion OrderByUsernameDesc() { return new SqlOrderCriterion(USERNAME_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
 
-        public static SqlOrderCriterion OrderByActiveAsc() { return new SqlQuery<AccountModel>.SqlOrderCriterion(ACTIVE_COLUMN); }
+        public static SqlOrderCriterion OrderByActiveAsc() { return new SqlOrderCriterion(ACTIVE_COLUMN); }
 
-        public static SqlOrderCriterion OrderByActiveDesc() { return new SqlQuery<AccountModel>.SqlOrderCriterion(ACTIVE_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
+        public static SqlOrderCriterion OrderByActiveDesc() { return new SqlOrderCriterion(ACTIVE_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
 
         #endregion
         
@@ -94,42 +94,24 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             SqlFilterCriterion criterion = (SqlFilterCriterion)Filter;
 
-            List<DbParameter> parameters = new List<DbParameter>();
+            bool usesParameter = criterion.UsesParameter;
 
-            bool hasParameter = false;
+            DbParameter[] parameters = null;
 
             if(criterion != null)
             {
-                query += string.Format("WHERE {0} ", criterion.Evaluate());
+                query += $"WHERE {criterion.Evaluate()} ";
 
-                if (criterion.UsesParameter)
-                {
-                    parameters.AddRange(criterion.GetParameters());
-                    hasParameter = true;
-                }
+                parameters = criterion.GetParameters();
 
-                while(criterion.HasNextCriteria)
-                {
-                    criterion = criterion.NextCriteria;
-
-                    query += criterion.Evaluate() + " ";
-
-                    if (criterion.UsesParameter)
-                    {
-                        parameters.AddRange(criterion.GetParameters());
-                        hasParameter = true;
-                    }
-                }
             }
-
-            if(Grouping != null) query += string.Format("GROUP BY {0} ", Grouping.Evaluate());
 
             if (Ordering != null) query += string.Format("ORDER BY {0} ", Ordering.Evaluate());
 
             MySQLProvider provider = new MySQLProvider(DBConfiguration.ConnectionString);
             SQLCaller caller = new SQLCaller(provider);
 
-            DbCommand command = hasParameter ? provider.CreateCommand(query, parameters.ToArray()) : provider.CreateCommand(query);
+            DbCommand command = criterion.UsesParameter ? provider.CreateCommand(query, parameters) : provider.CreateCommand(query);
            
             accounts = caller.Get(MapAccounts, command);
 
@@ -156,9 +138,9 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + USERNAME_COLUMN, Username) };
             }
 
-            protected override string GetSQLClause()
+            protected internal override string GetSQLClause()
             {
-                return USERNAME_COLUMN + " = @" + USERNAME_COLUMN + " ";
+                return $"{USERNAME_COLUMN} = BINARY(@{USERNAME_COLUMN})";
             }
         }
 
@@ -179,7 +161,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + ACCESSTYPE_COLUMN, AccessType) };
             }
 
-            protected override string GetSQLClause()
+            protected internal override string GetSQLClause()
             {
                 return ACCESSTYPE_COLUMN + " = @" + ACCESSTYPE_COLUMN + " ";
             }
@@ -202,7 +184,7 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + ACTIVE_COLUMN, IsActive) };
             }
 
-            protected override string GetSQLClause()
+            protected internal override string GetSQLClause()
             {
                 return ACTIVE_COLUMN + " = @" + ACTIVE_COLUMN + " ";
             }

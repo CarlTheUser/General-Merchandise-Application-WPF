@@ -8,6 +8,6 @@ namespace GeneralMerchandise.UI.ViewLauncher
 {
     public interface IProfileSetupViewLauncher: ViewLauncher
     {
-
+        void Close();
     }
 }

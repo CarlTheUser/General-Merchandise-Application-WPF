@@ -34,5 +34,16 @@ namespace GeneralMerchandise.Data.Client
                 persistence.Save(accountModel);
             }
         }
+
+        public void foo()
+        {
+            UserQuery q = new UserQuery();
+            q.Filter = new UserQuery.NameFilter("The Name")
+                .And(new UserQuery.GenderFilter(Common.Type.Gender.Male)
+                .Or(new UserQuery.IdFilter(2))
+                .CreateBrackets());
+
+            q.Execute();
+        }
     }
 }

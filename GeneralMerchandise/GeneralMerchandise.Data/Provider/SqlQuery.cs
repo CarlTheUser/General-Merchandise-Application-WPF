@@ -13,60 +13,95 @@ namespace GeneralMerchandise.Data.Provider
                 
         public abstract class SqlFilterCriterion : FilterCriterion<string>
         {
-
-            #region Static Constants
-
-            private static readonly string AND_CHAIN = "AND";
-
-            private static readonly string OR_CHAIN = "OR";
-
-            #endregion
-
-            private string chainType; //Node relationship (AND, OR)
-            
-            public SqlFilterCriterion NextCriteria { get; private set; } //Next Node in the filter series
-
-            public bool HasNextCriteria => NextCriteria != null;
-
-            public abstract DbParameter[] GetParameters(); //Support for Parameterized SQL querries. In array for BETWEEN scenarios (date between etc)
+            public virtual DbParameter[] GetParameters() { return null; } //Support for Parameterized SQL querries. In array for multiple parameters scenario like BETWEEN (date between etc)
 
             public bool UsesParameter { get; protected set; } = false;
 
-            protected abstract string GetSQLClause();
+            protected internal abstract string GetSQLClause();
 
-            public override string Evaluate() // Gets the SQL clauses and traverses the filter nodes in chain
+            public override string Evaluate() 
             {
-                string filterString = GetSQLClause();
-
-                if (HasNextCriteria) filterString += " " + chainType + " " + NextCriteria.Evaluate(); //Propagates the chain/node to get full filter string
-
-                return filterString;
+                return GetSQLClause();
             }
 
             public SqlFilterCriterion And(SqlFilterCriterion filterCriterion)
             {
-                if(!HasNextCriteria)
-                {
-                    NextCriteria = filterCriterion;
-                    chainType = AND_CHAIN;
-                }
-                else NextCriteria.And(filterCriterion); // Passes the filer to the next node until it replaces null at the end of the node.
-
-                return this;
+                return new CompoundSqlFilterCriterion(this, filterCriterion, CompoundSqlFilterCriterion.LINK_AND);
             }
 
             public SqlFilterCriterion Or(SqlFilterCriterion filterCriterion)
             {
-                if (!HasNextCriteria)
-                {
-                    NextCriteria = filterCriterion;
-                    chainType = OR_CHAIN;
-                }
-                else NextCriteria.Or(filterCriterion); // Passes the filer to the next node until it replaces null at the end of the node.
-
-                return this;
+                return new CompoundSqlFilterCriterion(this, filterCriterion, CompoundSqlFilterCriterion.LINK_OR);
             }
 
+            public SqlFilterCriterion CreateBrackets() => new ParenthesizedSqlFilterCriterion(this);
+
+        }
+
+        public class CompoundSqlFilterCriterion : SqlFilterCriterion
+        {
+            public static readonly string LINK_AND = "AND";
+
+            public static readonly string LINK_OR = "OR";
+
+            private SqlFilterCriterion LeftFilter { get; }
+
+            private SqlFilterCriterion RightFilter { get; }
+
+            string Link { get; }
+
+            public CompoundSqlFilterCriterion(SqlFilterCriterion left, SqlFilterCriterion right, string link)
+            {
+                LeftFilter = left;
+                RightFilter = right;
+                Link = link;
+                UsesParameter = LeftFilter.UsesParameter || RightFilter.UsesParameter;
+            }
+
+            protected internal override string GetSQLClause()
+            {
+                return $"{LeftFilter.GetSQLClause()} {Link} {RightFilter.GetSQLClause()}";
+            }
+
+            public override DbParameter[] GetParameters()
+            {
+                DbParameter[] leftParams;
+                DbParameter[] rightParams;
+
+                if (LeftFilter.UsesParameter && RightFilter.UsesParameter)
+                {
+                    leftParams = LeftFilter.GetParameters();
+                    rightParams = RightFilter.GetParameters();
+
+                    return leftParams.Concat(rightParams).ToArray();
+                }
+                else if (LeftFilter.UsesParameter) return LeftFilter.GetParameters();
+                else if (RightFilter.UsesParameter) return RightFilter.GetParameters();
+
+                return null;
+            }
+        }
+
+        public class ParenthesizedSqlFilterCriterion : SqlFilterCriterion
+        {
+
+            private SqlFilterCriterion GroupedCriterion { get; }
+
+            public ParenthesizedSqlFilterCriterion(SqlFilterCriterion groupedCriterion)
+            {
+                GroupedCriterion = groupedCriterion;
+                UsesParameter = GroupedCriterion.UsesParameter;
+            }
+
+            public override DbParameter[] GetParameters()
+            {
+                return GroupedCriterion.GetParameters();
+            }
+
+            protected internal override string GetSQLClause()
+            {
+                return $"({GroupedCriterion.GetSQLClause()})";
+            }
         }
 
         public class SqlOrderCriterion : OrderCriterion<string>
