@@ -1,7 +1,8 @@
 ﻿using GeneralMerchandise.Data.Client.Data;
-using GeneralMerchandise.Data.Login;
 using GeneralMerchandise.Data.Model;
 using GeneralMerchandise.Data.Password;
+using GeneralMerchandise.Data.Provider;
+using GeneralMerchandise.Data.Provider.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,85 +13,60 @@ namespace GeneralMerchandise.Data.Client
 {
     public sealed class LoginOperation
     {
-        public event EventHandler<LoginSuccessfulEventArgs> LoginSucceed;
 
-        public event EventHandler<LoginFailureEventArgs> LoginFailed;
+        private readonly IHashedPassword hashedPassword;
 
-        private readonly LoginService loginService;
+        public LoginOperation() => hashedPassword = new HashedPassword(); 
 
-        public LoginOperation()
+        public ILoginResult Login(string accountIdentifier, string inputPassword)
         {
-            loginService = new SQLLoginService();
-        }
-        
-        public void Login(string accountIdentifier, string inputPassword)
-        {
-            if(accountIdentifier.Trim().Length == 0)
-            {
-                OnLoginFailed("Account identifier is blank");
-                return;
-            }
+            Query<AccountModel, string> query = new AccountQuery();
 
-            if (inputPassword.Trim().Length == 0)
+            query.Filter = new AccountQuery.UsernameFilter(accountIdentifier);
+            
+            var results = query.Execute().ToList();
+
+            if (results != null && results.Count > 0)
             {
-                OnLoginFailed("Input password is blank");
-                return;
-            }
-            LoginService.ILoginResult result = loginService.Login(accountIdentifier, inputPassword);
-            if(result.IsSuccessful)
-            {
-                AccountModel account = result.Account;
-                OnLoginSucceed(new AccountData
+                AccountModel account = results[0];
+
+                if (hashedPassword.VerifyPassword(inputPassword, account.Password))
                 {
-                    Id = account.Identity,
-                    Username = account.Username,
-                    AccessType = account.AccessType,
-                    IsActive = account.IsActive
-                });
+                    if (account.IsActive)
+                    {
+                        return new LoginResult(new AccountData
+                        {
+                            Id = account.Identity,
+                            Username = account.Username,
+                            AccessType = account.AccessType,
+                            IsActive = account.IsActive
+                        });
+                    }
+                    else return new LoginResult(string.Format("{0} is deactivated", account.Username));
+                }
+                else return new LoginResult(string.Format("Wrong password for {0}", account.Username));
             }
-            else
-            {
-                OnLoginFailed(result.Message);
-            }
-
+            else return new LoginResult("No accounts found with given username");
         }
 
-        private void OnLoginSucceed(AccountData account)
+        public interface ILoginResult
         {
-            if (LoginSucceed != null) LoginSucceed.Invoke(this, new LoginSuccessfulEventArgs(account));
-            else
-            {
-                //log no listeners
-            }
+            bool IsSuccessful { get; }
+            AccountData Account { get; }
+            string Message { get; }
         }
 
-        private void OnLoginFailed(string message)
+        private class LoginResult : ILoginResult
         {
-            if (LoginFailed != null) LoginFailed.Invoke(this, new LoginFailureEventArgs(message));
-            else
-            {
-                //log no listeners
-            }
-        }
+            public bool IsSuccessful { get; private set; } = false;
 
-        public class LoginSuccessfulEventArgs : EventArgs
-        {
+            public AccountData Account { get; private set; }
 
-            public AccountData Account { get; }
-
-            public LoginSuccessfulEventArgs(AccountData account)
-            {
-                Account = account;
-            }
-        }
-
-        public class LoginFailureEventArgs : EventArgs
-        {
             public string Message { get; private set; }
-            public LoginFailureEventArgs(string message)
-            {
-                Message = message;
-            }
+
+            public LoginResult(AccountData account) => IsSuccessful = (Account = account) != null;
+
+            public LoginResult(string message) => Message = message; 
         }
     }
 }

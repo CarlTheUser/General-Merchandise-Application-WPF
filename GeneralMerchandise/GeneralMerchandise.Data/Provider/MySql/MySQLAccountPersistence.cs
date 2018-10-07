@@ -4,7 +4,9 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GeneralMerchandise.Data.Error;
 using GeneralMerchandise.Data.Model;
+using MySql.Data.MySqlClient;
 
 namespace GeneralMerchandise.Data.Provider.MySql
 {
@@ -60,9 +62,18 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             DbCommand command = sqlFactory.CreateCommand(INSERT_STATEMENT, inputParameters, new DbParameter[] { idParameter });
 
-            caller.ExecuteNonQuery(command);
+            try
+            {
+                caller.ExecuteNonQuery(command);
+                model.Identity = Convert.ToInt32(idParameter.Value);
+            }
+            catch(MySqlException e)
+            {
+                //Handles violation of unique constraint for username
+                if (e.ErrorCode == 1062) { throw new InvalidValueDuplicationException("Username", model.Username); }
+                else throw;
+            }
 
-            model.Identity = Convert.ToInt32(idParameter.Value);
         }
 
         public override void Edit(AccountModel model)
@@ -81,7 +92,16 @@ namespace GeneralMerchandise.Data.Provider.MySql
 
             DbCommand command = sqlFactory.CreateCommand(UPDATE_STATEMENT, inputParameters);
 
-            caller.ExecuteNonQuery(command);
+            try
+            {
+                caller.ExecuteNonQuery(command);
+            }
+            catch (MySqlException e)
+            {
+                //Handles violation of unique constraint for username
+                if (e.ErrorCode == 1062) { throw new InvalidValueDuplicationException("Username", model.Username); }
+                else throw;
+            }
         }
 
         public override void Delete(AccountModel model)

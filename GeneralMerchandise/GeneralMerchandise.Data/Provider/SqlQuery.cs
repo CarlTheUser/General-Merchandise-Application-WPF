@@ -10,7 +10,9 @@ namespace GeneralMerchandise.Data.Provider
     internal abstract class SqlQuery<TModel> : Query<TModel, string>
     {
         public override abstract IEnumerable<TModel> Execute();
-                
+
+        #region Criterion Classes
+
         public abstract class SqlFilterCriterion : FilterCriterion<string>
         {
             public virtual DbParameter[] GetParameters() { return null; } //Support for Parameterized SQL querries. In array for multiple parameters scenario like BETWEEN (date between etc)
@@ -175,7 +177,7 @@ namespace GeneralMerchandise.Data.Provider
 
         }
 
-
+        #endregion
 
     }
 }

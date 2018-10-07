@@ -10,21 +10,36 @@ namespace GeneralMerchandise.Data.Model
     {
         public static readonly long DEFAULT_IDENTITY = 0;
 
+        #region Static Factory Methods
+
         public static ProductModel New(string imageFilename, string name, string brand, string description, double unitPrice, int quantity = 0)
         {
-            return new ProductModel
-            {
-                Identity = DEFAULT_IDENTITY,
-                ImageFilename = imageFilename,
-                Name = name,
-                Brand = brand,
-                Description = description,
-                UnitPrice = unitPrice,
-                Quantity = quantity
-            };
+            return new ProductModel(DEFAULT_IDENTITY, imageFilename, name, brand, description, unitPrice, quantity);
         }
 
+        public static ProductModel Existing(long id, string imageFilename, string name, string brand, string description, double unitPrice, int quantity = 0)
+        {
+            return new ProductModel(id, imageFilename, name, brand, description, unitPrice, quantity);
+        }
+
+        #endregion
+
+        #region Constructors
+
         private ProductModel() { }
+
+        private ProductModel(long id, string imageFilename, string name, string brand, string description, double unitPrice, int quantity = 0)
+        {
+            Identity = id;
+            ImageFilename = imageFilename;
+            Name = name;
+            Brand = brand;
+            Description = description;
+            UnitPrice = unitPrice;
+            Quantity = quantity;
+        }
+
+        #endregion
 
         /// <summary>
         /// The Serial Number on a product barcode

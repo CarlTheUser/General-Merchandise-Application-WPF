@@ -46,7 +46,9 @@ namespace GeneralMerchandise.Data.Provider.MySql
         public static SqlOrderCriterion OrderByActiveDesc() { return new SqlOrderCriterion(ACTIVE_COLUMN, SqlQuery<AccountModel>.SqlOrderCriterion.OrderOptions.Descensding); }
 
         #endregion
-        
+
+        #region Private Behaviors
+
         private List<AccountModel> MapAccounts(IDataReader reader)
         {
             List<AccountModel> accounts = new List<AccountModel>();
@@ -86,6 +88,8 @@ namespace GeneralMerchandise.Data.Provider.MySql
             }
         }
 
+        #endregion
+
         public override IEnumerable<AccountModel> Execute()
         {
             IEnumerable<AccountModel> accounts = null;
@@ -118,6 +122,8 @@ namespace GeneralMerchandise.Data.Provider.MySql
             return accounts;
         }
 
+        #region Filter Classes
+
         public class UsernameFilter : SqlFilterCriterion
         {
 
@@ -138,10 +144,8 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + USERNAME_COLUMN, Username) };
             }
 
-            protected internal override string GetSQLClause()
-            {
-                return $"{USERNAME_COLUMN} = BINARY(@{USERNAME_COLUMN})";
-            }
+            protected internal override string GetSQLClause() => $"{USERNAME_COLUMN} = BINARY(@{USERNAME_COLUMN})";
+
         }
 
         public class AccessTypeFilter : SqlFilterCriterion
@@ -161,33 +165,31 @@ namespace GeneralMerchandise.Data.Provider.MySql
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + ACCESSTYPE_COLUMN, AccessType) };
             }
 
-            protected internal override string GetSQLClause()
-            {
-                return ACCESSTYPE_COLUMN + " = @" + ACCESSTYPE_COLUMN + " ";
-            }
+            protected internal override string GetSQLClause() => ACCESSTYPE_COLUMN + " = @" + ACCESSTYPE_COLUMN + " ";
+
         }
 
         public class ActiveFilter : SqlFilterCriterion
         {
 
-            public bool IsActive { get; set; }
+            public bool IsActive { get; set; } 
 
             public ActiveFilter(bool active) : this()
             {
                 IsActive = active;
             }
 
-            public ActiveFilter() { UsesParameter = true; }
+            public ActiveFilter() => UsesParameter = true; 
 
             public override DbParameter[] GetParameters()
             {
                 return new DbParameter[] { new MySQLProvider().CreateInputParameter("@" + ACTIVE_COLUMN, IsActive) };
             }
 
-            protected internal override string GetSQLClause()
-            {
-                return ACTIVE_COLUMN + " = @" + ACTIVE_COLUMN + " ";
-            }
+            protected internal override string GetSQLClause() => ACTIVE_COLUMN + " = @" + ACTIVE_COLUMN + " ";
+
         }
+
+        #endregion
     }
 }

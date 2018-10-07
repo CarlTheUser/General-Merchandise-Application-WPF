@@ -51,9 +51,6 @@
     <Compile Include="Client\LoginOperation.cs" />
     <Compile Include="Client\UserOperation.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Login\LoginService.cs" />
-    <Compile Include="Login\SQLLoginService.cs" />
-    <Compile Include="Login\StubLoginService.cs" />
     <Compile Include="Model\AccountModel.cs" />
     <Compile Include="Model\IIdentifiable.cs" />
     <Compile Include="Model\PersistibleModel.cs" />
@@ -72,10 +69,12 @@
     <Compile Include="Provider\MySql\MySQLProductPersistence.cs" />
     <Compile Include="Provider\MySql\MySQLProvider.cs" />
     <Compile Include="Provider\MySql\MySQLUserPersistence.cs" />
+    <Compile Include="Provider\MySql\ProductQuery.cs" />
     <Compile Include="Provider\MySql\ProductTaggingsQuery.cs" />
     <Compile Include="Provider\MySql\TagQuery.cs" />
     <Compile Include="Provider\MySql\UserDisplayQuery.cs" />
     <Compile Include="Provider\MySql\UserQuery.cs" />
+    <Compile Include="Provider\PersistenceError\InvalidValueDuplicationException.cs" />
     <Compile Include="Provider\ProductPersistence.cs" />
     <Compile Include="Provider\SQLCaller.cs" />
     <Compile Include="Provider\ISQLProvider.cs" />
@@ -97,6 +96,8 @@
       <Name>GeneralMerchandise.Logging</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DB_SCHEMA.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

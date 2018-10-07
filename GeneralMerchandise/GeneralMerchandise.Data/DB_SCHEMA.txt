@@ -1,0 +1,136 @@
+﻿
+CREATE DATABASE general_merch_db;
+
+USE general_merch_db;
+
+-- [(Auto incremented)]
+CREATE TABLE IF NOT EXISTS Accounts(
+	Id INT(15) PRIMARY KEY AUTO_INCREMENT,
+	Username VARCHAR(50),
+	HashedPassword VARCHAR(40),
+	Salt VARCHAR(32),
+	AccessType TINYINT(1),
+	IsActive TINYINT(1)
+) ENGINE=InnoDB;
+
+-- INSERT INTO accounts(Id, Username, HashedPassword, Salt, AccessType, IsActive)
+-- VALUES (20180612, 'admin', 'fc70bd64743f733484ab51c52a2924a5f5ecd1f8', 'bc7c6c875d779ac45e6294f6f41fea99', 1, 1);
+
+CREATE TABLE IF NOT EXISTS UserInfo(
+	Id INT(15) PRIMARY KEY,
+	ImageFilename VARCHAR(100),
+	Firstname VARCHAR(100),
+	Middlename VARCHAR(100),
+	Lastname VARCHAR(100),
+	Gender TINYINT(1),
+	Birthdate DATE,
+	ContactNumber VARCHAR(13),
+	Email VARCHAR(75),
+	Address VARCHAR(200)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS Products(
+	Id INT(15) PRIMARY KEY,
+	ImageFilename VARCHAR(100),
+	Name VARCHAR(100),
+	Brand VARCHAR(25),
+	Description VARCHAR(100),
+	UnitPrice DECIMAL(7, 2) DEFAULT 0,
+	Quantity INT(11) DEFAULT 0
+) ENGINE=InnoDB;
+
+
+-- [(Auto incremented)]
+CREATE TABLE IF NOT EXISTS ProductTags(
+	Id INT(11) PRIMARY KEY auto_increment,
+	Name VARCHAR(25)
+) ENGINE=InnoDB;
+
+-- INDEXES: (TagId, ProductId)
+CREATE TABLE IF NOT EXISTS ProductTaggings(
+	TagId INT(11),
+	ProductId INT(15)
+) ENGINE=InnoDB;
+
+
+
+-- [(Auto incremented)]
+-- Indexes: Id, Cashier
+CREATE TABLE IF NOT EXISTS ProductSales(
+	Id INT(15) PRIMARY KEY auto_increment,
+	PurchaseDate TIMESTAMP,
+	Cashier INT(15)
+) ENGINE=InnoDB;
+
+
+
+-- Indexes: (SaleId, ProductId)
+CREATE TABLE IF NOT EXISTS ProductPurchases(
+	SaleId INT(15),
+	ProductId INT(15),
+	Quantity INT(3),
+	UnitPrice Decimal(7, 2)
+) ENGINE=InnoDB;
+
+
+-- Foreign Keys
+
+ALTER TABLE UserInfo
+ADD CONSTRAINT fk_userinfo_id_account_id
+FOREIGN KEY (Id)
+REFERENCES Accounts(Id);
+
+ALTER TABLE ProductTaggings
+ADD CONSTRAINT fk_product_taggings_tagid_producttags_id
+FOREIGN KEY (TagId)
+REFERENCES ProductTags(Id);
+
+ALTER TABLE ProductTaggings
+ADD CONSTRAINT fk_product_taggings_productid_product_id
+FOREIGN KEY (ProductId)
+REFERENCES Products(Id);
+
+ALTER TABLE ProductSales
+ADD CONSTRAINT fk_productsales_cashier_account_id
+FOREIGN KEY (Cashier)
+REFERENCES Accounts(Id);
+
+ALTER TABLE ProductPurchases
+ADD CONSTRAINT fk_productpurchases_saleid_productsales_id
+FOREIGN KEY (SaleId)
+REFERENCES ProductSales (Id);
+
+ALTER TABLE ProductPurchases
+ADD CONSTRAINT fk_productpurchases_productid_product_id
+FOREIGN KEY (ProductId)
+REFERENCES Products (Id);
+
+-- Uniques
+ALTER TABLE Products
+ADD CONSTRAINT uc_products_brand_name
+UNIQUE (Brand, Name);
+
+ALTER TABLE Accounts
+ADD CONSTRAINT uc_accounts_username
+UNIQUE (Username);
+
+ALTER TABLE ProductTaggings
+ADD CONSTRAINT uc_product_taggings_tag_id_product_id
+UNIQUE (TagId, ProductId);
+
+--Indexes
+
+CREATE INDEX product_taggings_index
+ON ProductTaggings (TagId, ProductId);
+
+CREATE INDEX product_sales_index
+ON ProductSales (Id, Cashier);
+
+CREATE INDEX product_purchases_index
+ON ProductPurchases (SaleId, ProductId);
+
+INSERT INTO accounts(Username, HashedPassword, Salt, AccessType, IsActive)
+VALUES ('admin', 'fc70bd64743f733484ab51c52a2924a5f5ecd1f8', 'bc7c6c875d779ac45e6294f6f41fea99', 1, 1);
+
+
